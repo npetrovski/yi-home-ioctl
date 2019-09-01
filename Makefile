@@ -8,30 +8,31 @@ CFLAGS = -Wall -I./src
 
 TARGET = ioctl
 
-SRCDIR   = src
-OBJDIR   = dist
-BINDIR   = dist
+SRC_DIR   = src
+DIST_DIR   = dist
 
-SOURCES  := $(wildcard $(SRCDIR)/*.c)
-INCLUDES := $(wildcard $(SRCDIR)/*.h)
-OBJECTS  := $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+.PHONY: clean remove
+
+SOURCES  := $(wildcard $(SRC_DIR)/*.c)
+INCLUDES := $(wildcard $(SRC_DIR)/*.h)
+OBJECTS  := $(SOURCES:$(SRC_DIR)/%.c=$(DIST_DIR)/%.o)
 rm       = rm -f
 
-$(BINDIR)/$(TARGET): $(OBJECTS)
+$(DIST_DIR)/$(TARGET): $(OBJECTS)
 	$(CC) $(LFLAGS) $(OBJECTS) -o $@
-	$(STRIP) $(BINDIR)/$(TARGET)
+	$(STRIP) $(DIST_DIR)/$(TARGET)
 	@echo "Linking complete!"
 
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
+$(OBJECTS): $(DIST_DIR)/%.o : $(SRC_DIR)/%.c
+	@mkdir -p $(DIST_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled "$<" successfully!"
 
-.PHONY: clean
 clean:
 	@$(rm) $(OBJECTS)
 	@echo "Cleanup complete!"
 
-.PHONY: remove
+
 remove: clean
-	@$(rm) $(BINDIR)/$(TARGET)
+	@$(rm) $(DIST_DIR)/$(TARGET)
 	@echo "Executable removed!"
