@@ -1,0 +1,1127 @@
+#include <unistd.h>
+#include <net/if.h>
+#include <stdint.h>
+#include <asm/termbits.h>
+#include "../include/ioctls_list.h"
+#include <asm-generic/ioctls.h>
+#include <rdma/ib_user_mad.h>
+#include <drm/drm.h>
+#include <mtd/mtd-abi.h>
+#include <mtd/ubi-user.h>
+#include <sound/hdspm.h>
+#include <sound/asound_fm.h>
+#include <sound/hdsp.h>
+#include <sound/asound.h>
+#include <sound/compress_offload.h>
+#include <sound/sb16_csp.h>
+#include <sound/sfnt_info.h>
+#include <net/if_ppp.h>
+#include <linux/atmdev.h>
+#include <linux/suspend_ioctls.h>
+#include <linux/synclink.h>
+#include <linux/media.h>
+#include <linux/radeonfb.h>
+#include <linux/dvb/ca.h>
+#include <linux/dvb/video.h>
+#include <linux/dvb/frontend.h>
+#include <linux/dvb/audio.h>
+#include <linux/dvb/dmx.h>
+#include <linux/dvb/net.h>
+#include <linux/dvb/osd.h>
+#include <linux/atmlec.h>
+#include <linux/matroxfb.h>
+#include <linux/vhost.h>
+#include <linux/pps.h>
+#include <linux/cm4000_cs.h>
+#include <linux/if_tun.h>
+#include <linux/arcfb.h>
+#include <linux/hiddev.h>
+#include <linux/ptp_clock.h>
+#include <linux/ipmi.h>
+#include <linux/atm_he.h>
+#include <linux/nvram.h>
+#include <linux/dm-ioctl.h>
+#include <linux/cciss_ioctl.h>
+#include <linux/msdos_fs.h>
+#include <linux/capi.h>
+#include <linux/usbdevice_fs.h>
+#include <linux/rfkill.h>
+#include <linux/chio.h>
+#include <linux/hsi/hsi_char.h>
+#include <linux/isdn_ppp.h>
+#include <linux/hidraw.h>
+#include <linux/input.h>
+#include <linux/spi/spidev.h>
+#include <linux/meye.h>
+#include <linux/reiserfs_fs.h>
+#include <linux/i8k.h>
+#include <linux/pktcdvd.h>
+#include <linux/atm_nicstar.h>
+#include <linux/atmsvc.h>
+#include <linux/apm_bios.h>
+#include <linux/v4l2-subdev.h>
+#include <linux/toshiba.h>
+#include <linux/phantom.h>
+#include <linux/gigaset_dev.h>
+#include <linux/blkpg.h>
+#include <linux/joystick.h>
+#include <linux/watchdog.h>
+#include <linux/nbd.h>
+#include <linux/random.h>
+#include <linux/ivtvfb.h>
+#include <linux/agpgart.h>
+#include <linux/rtc.h>
+#include <linux/omapfb.h>
+#include <linux/fb.h>
+#include <linux/atmmpc.h>
+#include <linux/fs.h>
+#include <linux/atmarp.h>
+#include <linux/auto_fs4.h>
+#include <linux/firewire-cdev.h>
+#include <linux/fd.h>
+#include <linux/atm_tcp.h>
+#include <linux/atm_eni.h>
+#include <linux/uvcvideo.h>
+#include <linux/hpet.h>
+#include <linux/sonypi.h>
+#include <linux/udf_fs_i.h>
+#include <linux/atm_idt77105.h>
+#include <linux/dn.h>
+#include <linux/uinput.h>
+#include <linux/pmu.h>
+#include <linux/videodev2.h>
+#include <linux/perf_event.h>
+#include <linux/mmtimer.h>
+#include <linux/atmclip.h>
+#include <linux/i2o-dev.h>
+#include <linux/isdn.h>
+#include <linux/serio.h>
+#include <linux/usb/gadgetfs.h>
+#include <linux/usb/functionfs.h>
+#include <linux/usb/g_printer.h>
+#include <linux/usb/tmc.h>
+#include <linux/ppdev.h>
+#include <linux/sonet.h>
+#include <linux/atm_zatm.h>
+#include <linux/ncp_fs.h>
+#include <video/sisfb.h>
+
+const struct ioctl_entry ioctls_list[] = {
+    { "TCGETS2", TCGETS2, -1, -1 }, // asm-generic/ioctls.h:60
+    { "TCSETS2", TCSETS2, -1, -1 }, // asm-generic/ioctls.h:61
+    { "TCSETSW2", TCSETSW2, -1, -1 }, // asm-generic/ioctls.h:62
+    { "TCSETSF2", TCSETSF2, -1, -1 }, // asm-generic/ioctls.h:63
+    { "TIOCGPTN", TIOCGPTN, -1, -1 }, // asm-generic/ioctls.h:68
+    { "TIOCSPTLCK", TIOCSPTLCK, -1, -1 }, // asm-generic/ioctls.h:69
+    { "TIOCGDEV", TIOCGDEV, -1, -1 }, // asm-generic/ioctls.h:70
+    { "TIOCSIG", TIOCSIG, -1, -1 }, // asm-generic/ioctls.h:75
+    { "IB_USER_MAD_REGISTER_AGENT", IB_USER_MAD_REGISTER_AGENT, -1, -1 }, // rdma/ib_user_mad.h:196
+    { "IB_USER_MAD_UNREGISTER_AGENT", IB_USER_MAD_UNREGISTER_AGENT, -1, -1 }, // rdma/ib_user_mad.h:199
+    { "IB_USER_MAD_ENABLE_PKEY", IB_USER_MAD_ENABLE_PKEY, -1, -1 }, // rdma/ib_user_mad.h:201
+    { "MEMGETINFO", MEMGETINFO, -1, -1 }, // mtd/mtd-abi.h:156
+    { "MEMERASE", MEMERASE, -1, -1 }, // mtd/mtd-abi.h:158
+    { "MEMWRITEOOB", MEMWRITEOOB, -1, -1 }, // mtd/mtd-abi.h:160
+    { "MEMREADOOB", MEMREADOOB, -1, -1 }, // mtd/mtd-abi.h:162
+    { "MEMLOCK", MEMLOCK, -1, -1 }, // mtd/mtd-abi.h:164
+    { "MEMUNLOCK", MEMUNLOCK, -1, -1 }, // mtd/mtd-abi.h:166
+    { "MEMGETREGIONCOUNT", MEMGETREGIONCOUNT, -1, -1 }, // mtd/mtd-abi.h:168
+    { "MEMGETREGIONINFO", MEMGETREGIONINFO, -1, -1 }, // mtd/mtd-abi.h:170
+    { "MEMGETOOBSEL", MEMGETOOBSEL, -1, -1 }, // mtd/mtd-abi.h:172
+    { "MEMGETBADBLOCK", MEMGETBADBLOCK, -1, -1 }, // mtd/mtd-abi.h:174
+    { "MEMSETBADBLOCK", MEMSETBADBLOCK, -1, -1 }, // mtd/mtd-abi.h:176
+    { "OTPSELECT", OTPSELECT, -1, -1 }, // mtd/mtd-abi.h:178
+    { "OTPGETREGIONCOUNT", OTPGETREGIONCOUNT, -1, -1 }, // mtd/mtd-abi.h:180
+    { "OTPGETREGIONINFO", OTPGETREGIONINFO, -1, -1 }, // mtd/mtd-abi.h:182
+    { "OTPLOCK", OTPLOCK, -1, -1 }, // mtd/mtd-abi.h:184
+    { "ECCGETLAYOUT", ECCGETLAYOUT, -1, -1 }, // mtd/mtd-abi.h:186
+    { "ECCGETSTATS", ECCGETSTATS, -1, -1 }, // mtd/mtd-abi.h:188
+    { "MTDFILEMODE", MTDFILEMODE, -1, -1 }, // mtd/mtd-abi.h:190
+    { "MEMERASE64", MEMERASE64, -1, -1 }, // mtd/mtd-abi.h:192
+    { "MEMWRITEOOB64", MEMWRITEOOB64, -1, -1 }, // mtd/mtd-abi.h:194
+    { "MEMREADOOB64", MEMREADOOB64, -1, -1 }, // mtd/mtd-abi.h:196
+    { "MEMISLOCKED", MEMISLOCKED, -1, -1 }, // mtd/mtd-abi.h:198
+    { "MEMWRITE", MEMWRITE, -1, -1 }, // mtd/mtd-abi.h:204
+    { "UBI_IOCMKVOL", UBI_IOCMKVOL, -1, -1 }, // mtd/ubi-user.h:155
+    { "UBI_IOCRMVOL", UBI_IOCRMVOL, -1, -1 }, // mtd/ubi-user.h:157
+    { "UBI_IOCRSVOL", UBI_IOCRSVOL, -1, -1 }, // mtd/ubi-user.h:159
+    { "UBI_IOCRNVOL", UBI_IOCRNVOL, -1, -1 }, // mtd/ubi-user.h:161
+    { "UBI_IOCATT", UBI_IOCATT, -1, -1 }, // mtd/ubi-user.h:168
+    { "UBI_IOCDET", UBI_IOCDET, -1, -1 }, // mtd/ubi-user.h:170
+    { "UBI_IOCVOLUP", UBI_IOCVOLUP, -1, -1 }, // mtd/ubi-user.h:180
+    { "UBI_IOCEBER", UBI_IOCEBER, -1, -1 }, // mtd/ubi-user.h:182
+    { "UBI_IOCEBCH", UBI_IOCEBCH, -1, -1 }, // mtd/ubi-user.h:184
+    { "UBI_IOCEBMAP", UBI_IOCEBMAP, -1, -1 }, // mtd/ubi-user.h:186
+    { "UBI_IOCEBUNMAP", UBI_IOCEBUNMAP, -1, -1 }, // mtd/ubi-user.h:188
+    { "UBI_IOCEBISMAP", UBI_IOCEBISMAP, -1, -1 }, // mtd/ubi-user.h:190
+    { "UBI_IOCSETVOLPROP", UBI_IOCSETVOLPROP, -1, -1 }, // mtd/ubi-user.h:192
+    { "SNDRV_HDSPM_IOCTL_GET_LTC", SNDRV_HDSPM_IOCTL_GET_LTC, -1, -1 }, // sound/hdspm.h:114
+    { "SNDRV_HDSPM_IOCTL_GET_VERSION", SNDRV_HDSPM_IOCTL_GET_VERSION, -1, -1 }, // sound/hdspm.h:188
+    { "SNDRV_HDSPM_IOCTL_GET_MIXER", SNDRV_HDSPM_IOCTL_GET_MIXER, -1, -1 }, // sound/hdspm.h:219
+    { "SNDRV_DM_FM_IOCTL_INFO", SNDRV_DM_FM_IOCTL_INFO, -1, -1 }, // sound/asound_fm.h:99
+    { "SNDRV_DM_FM_IOCTL_PLAY_NOTE", SNDRV_DM_FM_IOCTL_PLAY_NOTE, -1, -1 }, // sound/asound_fm.h:101
+    { "SNDRV_DM_FM_IOCTL_SET_VOICE", SNDRV_DM_FM_IOCTL_SET_VOICE, -1, -1 }, // sound/asound_fm.h:102
+    { "SNDRV_DM_FM_IOCTL_SET_PARAMS", SNDRV_DM_FM_IOCTL_SET_PARAMS, -1, -1 }, // sound/asound_fm.h:103
+    { "SNDRV_DM_FM_IOCTL_SET_MODE", SNDRV_DM_FM_IOCTL_SET_MODE, -1, -1 }, // sound/asound_fm.h:104
+    { "SNDRV_DM_FM_IOCTL_SET_CONNECTION", SNDRV_DM_FM_IOCTL_SET_CONNECTION, -1, -1 }, // sound/asound_fm.h:106
+    { "SNDRV_HDSP_IOCTL_GET_PEAK_RMS", SNDRV_HDSP_IOCTL_GET_PEAK_RMS, -1, -1 }, // sound/hdsp.h:45
+    { "SNDRV_HDSP_IOCTL_GET_CONFIG_INFO", SNDRV_HDSP_IOCTL_GET_CONFIG_INFO, -1, -1 }, // sound/hdsp.h:73
+    { "SNDRV_HDSP_IOCTL_UPLOAD_FIRMWARE", SNDRV_HDSP_IOCTL_UPLOAD_FIRMWARE, -1, -1 }, // sound/hdsp.h:79
+    { "SNDRV_HDSP_IOCTL_GET_VERSION", SNDRV_HDSP_IOCTL_GET_VERSION, -1, -1 }, // sound/hdsp.h:86
+    { "SNDRV_HDSP_IOCTL_GET_MIXER", SNDRV_HDSP_IOCTL_GET_MIXER, -1, -1 }, // sound/hdsp.h:92
+    { "SNDRV_HDSP_IOCTL_GET_9632_AEB", SNDRV_HDSP_IOCTL_GET_9632_AEB, -1, -1 }, // sound/hdsp.h:99
+    { "SNDRV_HWDEP_IOCTL_DSP_STATUS", SNDRV_HWDEP_IOCTL_DSP_STATUS, -1, -1 }, // sound/asound.h:131
+    { "SNDRV_HWDEP_IOCTL_DSP_LOAD", SNDRV_HWDEP_IOCTL_DSP_LOAD, -1, -1 }, // sound/asound.h:132
+    { "SNDRV_PCM_IOCTL_PVERSION", SNDRV_PCM_IOCTL_PVERSION, -1, -1 }, // sound/asound.h:515
+    { "SNDRV_PCM_IOCTL_INFO", SNDRV_PCM_IOCTL_INFO, -1, -1 }, // sound/asound.h:516
+    { "SNDRV_PCM_IOCTL_TSTAMP", SNDRV_PCM_IOCTL_TSTAMP, -1, -1 }, // sound/asound.h:517
+    { "SNDRV_PCM_IOCTL_TTSTAMP", SNDRV_PCM_IOCTL_TTSTAMP, -1, -1 }, // sound/asound.h:518
+    { "SNDRV_PCM_IOCTL_HW_REFINE", SNDRV_PCM_IOCTL_HW_REFINE, -1, -1 }, // sound/asound.h:519
+    { "SNDRV_PCM_IOCTL_HW_PARAMS", SNDRV_PCM_IOCTL_HW_PARAMS, -1, -1 }, // sound/asound.h:520
+    { "SNDRV_PCM_IOCTL_HW_FREE", SNDRV_PCM_IOCTL_HW_FREE, -1, -1 }, // sound/asound.h:521
+    { "SNDRV_PCM_IOCTL_SW_PARAMS", SNDRV_PCM_IOCTL_SW_PARAMS, -1, -1 }, // sound/asound.h:522
+    { "SNDRV_PCM_IOCTL_STATUS", SNDRV_PCM_IOCTL_STATUS, -1, -1 }, // sound/asound.h:523
+    { "SNDRV_PCM_IOCTL_DELAY", SNDRV_PCM_IOCTL_DELAY, -1, -1 }, // sound/asound.h:524
+    { "SNDRV_PCM_IOCTL_HWSYNC", SNDRV_PCM_IOCTL_HWSYNC, -1, -1 }, // sound/asound.h:525
+    { "SNDRV_PCM_IOCTL_SYNC_PTR", SNDRV_PCM_IOCTL_SYNC_PTR, -1, -1 }, // sound/asound.h:526
+    { "SNDRV_PCM_IOCTL_CHANNEL_INFO", SNDRV_PCM_IOCTL_CHANNEL_INFO, -1, -1 }, // sound/asound.h:527
+    { "SNDRV_PCM_IOCTL_PREPARE", SNDRV_PCM_IOCTL_PREPARE, -1, -1 }, // sound/asound.h:528
+    { "SNDRV_PCM_IOCTL_RESET", SNDRV_PCM_IOCTL_RESET, -1, -1 }, // sound/asound.h:529
+    { "SNDRV_PCM_IOCTL_START", SNDRV_PCM_IOCTL_START, -1, -1 }, // sound/asound.h:530
+    { "SNDRV_PCM_IOCTL_DROP", SNDRV_PCM_IOCTL_DROP, -1, -1 }, // sound/asound.h:531
+    { "SNDRV_PCM_IOCTL_DRAIN", SNDRV_PCM_IOCTL_DRAIN, -1, -1 }, // sound/asound.h:532
+    { "SNDRV_PCM_IOCTL_PAUSE", SNDRV_PCM_IOCTL_PAUSE, -1, -1 }, // sound/asound.h:533
+    { "SNDRV_PCM_IOCTL_REWIND", SNDRV_PCM_IOCTL_REWIND, -1, -1 }, // sound/asound.h:534
+    { "SNDRV_PCM_IOCTL_RESUME", SNDRV_PCM_IOCTL_RESUME, -1, -1 }, // sound/asound.h:535
+    { "SNDRV_PCM_IOCTL_XRUN", SNDRV_PCM_IOCTL_XRUN, -1, -1 }, // sound/asound.h:536
+    { "SNDRV_PCM_IOCTL_FORWARD", SNDRV_PCM_IOCTL_FORWARD, -1, -1 }, // sound/asound.h:537
+    { "SNDRV_PCM_IOCTL_WRITEI_FRAMES", SNDRV_PCM_IOCTL_WRITEI_FRAMES, -1, -1 }, // sound/asound.h:538
+    { "SNDRV_PCM_IOCTL_READI_FRAMES", SNDRV_PCM_IOCTL_READI_FRAMES, -1, -1 }, // sound/asound.h:539
+    { "SNDRV_PCM_IOCTL_WRITEN_FRAMES", SNDRV_PCM_IOCTL_WRITEN_FRAMES, -1, -1 }, // sound/asound.h:540
+    { "SNDRV_PCM_IOCTL_READN_FRAMES", SNDRV_PCM_IOCTL_READN_FRAMES, -1, -1 }, // sound/asound.h:541
+    { "SNDRV_PCM_IOCTL_LINK", SNDRV_PCM_IOCTL_LINK, -1, -1 }, // sound/asound.h:542
+    { "SNDRV_PCM_IOCTL_UNLINK", SNDRV_PCM_IOCTL_UNLINK, -1, -1 }, // sound/asound.h:543
+    { "SNDRV_RAWMIDI_IOCTL_PVERSION", SNDRV_RAWMIDI_IOCTL_PVERSION, -1, -1 }, // sound/asound.h:597
+    { "SNDRV_RAWMIDI_IOCTL_INFO", SNDRV_RAWMIDI_IOCTL_INFO, -1, -1 }, // sound/asound.h:598
+    { "SNDRV_RAWMIDI_IOCTL_PARAMS", SNDRV_RAWMIDI_IOCTL_PARAMS, -1, -1 }, // sound/asound.h:599
+    { "SNDRV_RAWMIDI_IOCTL_STATUS", SNDRV_RAWMIDI_IOCTL_STATUS, -1, -1 }, // sound/asound.h:600
+    { "SNDRV_RAWMIDI_IOCTL_DROP", SNDRV_RAWMIDI_IOCTL_DROP, -1, -1 }, // sound/asound.h:601
+    { "SNDRV_RAWMIDI_IOCTL_DRAIN", SNDRV_RAWMIDI_IOCTL_DRAIN, -1, -1 }, // sound/asound.h:602
+    { "SNDRV_TIMER_IOCTL_PVERSION", SNDRV_TIMER_IOCTL_PVERSION, -1, -1 }, // sound/asound.h:711
+    { "SNDRV_TIMER_IOCTL_NEXT_DEVICE", SNDRV_TIMER_IOCTL_NEXT_DEVICE, -1, -1 }, // sound/asound.h:712
+    { "SNDRV_TIMER_IOCTL_TREAD", SNDRV_TIMER_IOCTL_TREAD, -1, -1 }, // sound/asound.h:713
+    { "SNDRV_TIMER_IOCTL_GINFO", SNDRV_TIMER_IOCTL_GINFO, -1, -1 }, // sound/asound.h:714
+    { "SNDRV_TIMER_IOCTL_GPARAMS", SNDRV_TIMER_IOCTL_GPARAMS, -1, -1 }, // sound/asound.h:715
+    { "SNDRV_TIMER_IOCTL_GSTATUS", SNDRV_TIMER_IOCTL_GSTATUS, -1, -1 }, // sound/asound.h:716
+    { "SNDRV_TIMER_IOCTL_SELECT", SNDRV_TIMER_IOCTL_SELECT, -1, -1 }, // sound/asound.h:717
+    { "SNDRV_TIMER_IOCTL_INFO", SNDRV_TIMER_IOCTL_INFO, -1, -1 }, // sound/asound.h:718
+    { "SNDRV_TIMER_IOCTL_PARAMS", SNDRV_TIMER_IOCTL_PARAMS, -1, -1 }, // sound/asound.h:719
+    { "SNDRV_TIMER_IOCTL_STATUS", SNDRV_TIMER_IOCTL_STATUS, -1, -1 }, // sound/asound.h:720
+    { "SNDRV_TIMER_IOCTL_START", SNDRV_TIMER_IOCTL_START, -1, -1 }, // sound/asound.h:722
+    { "SNDRV_TIMER_IOCTL_STOP", SNDRV_TIMER_IOCTL_STOP, -1, -1 }, // sound/asound.h:723
+    { "SNDRV_TIMER_IOCTL_CONTINUE", SNDRV_TIMER_IOCTL_CONTINUE, -1, -1 }, // sound/asound.h:724
+    { "SNDRV_TIMER_IOCTL_PAUSE", SNDRV_TIMER_IOCTL_PAUSE, -1, -1 }, // sound/asound.h:725
+    { "SNDRV_CTL_IOCTL_PVERSION", SNDRV_CTL_IOCTL_PVERSION, -1, -1 }, // sound/asound.h:906
+    { "SNDRV_CTL_IOCTL_CARD_INFO", SNDRV_CTL_IOCTL_CARD_INFO, -1, -1 }, // sound/asound.h:907
+    { "SNDRV_CTL_IOCTL_ELEM_LIST", SNDRV_CTL_IOCTL_ELEM_LIST, -1, -1 }, // sound/asound.h:908
+    { "SNDRV_CTL_IOCTL_ELEM_INFO", SNDRV_CTL_IOCTL_ELEM_INFO, -1, -1 }, // sound/asound.h:909
+    { "SNDRV_CTL_IOCTL_ELEM_READ", SNDRV_CTL_IOCTL_ELEM_READ, -1, -1 }, // sound/asound.h:910
+    { "SNDRV_CTL_IOCTL_ELEM_WRITE", SNDRV_CTL_IOCTL_ELEM_WRITE, -1, -1 }, // sound/asound.h:911
+    { "SNDRV_CTL_IOCTL_ELEM_LOCK", SNDRV_CTL_IOCTL_ELEM_LOCK, -1, -1 }, // sound/asound.h:912
+    { "SNDRV_CTL_IOCTL_ELEM_UNLOCK", SNDRV_CTL_IOCTL_ELEM_UNLOCK, -1, -1 }, // sound/asound.h:913
+    { "SNDRV_CTL_IOCTL_SUBSCRIBE_EVENTS", SNDRV_CTL_IOCTL_SUBSCRIBE_EVENTS, -1, -1 }, // sound/asound.h:914
+    { "SNDRV_CTL_IOCTL_ELEM_ADD", SNDRV_CTL_IOCTL_ELEM_ADD, -1, -1 }, // sound/asound.h:915
+    { "SNDRV_CTL_IOCTL_ELEM_REPLACE", SNDRV_CTL_IOCTL_ELEM_REPLACE, -1, -1 }, // sound/asound.h:916
+    { "SNDRV_CTL_IOCTL_ELEM_REMOVE", SNDRV_CTL_IOCTL_ELEM_REMOVE, -1, -1 }, // sound/asound.h:917
+    { "SNDRV_CTL_IOCTL_TLV_READ", SNDRV_CTL_IOCTL_TLV_READ, -1, -1 }, // sound/asound.h:918
+    { "SNDRV_CTL_IOCTL_TLV_WRITE", SNDRV_CTL_IOCTL_TLV_WRITE, -1, -1 }, // sound/asound.h:919
+    { "SNDRV_CTL_IOCTL_TLV_COMMAND", SNDRV_CTL_IOCTL_TLV_COMMAND, -1, -1 }, // sound/asound.h:920
+    { "SNDRV_CTL_IOCTL_HWDEP_NEXT_DEVICE", SNDRV_CTL_IOCTL_HWDEP_NEXT_DEVICE, -1, -1 }, // sound/asound.h:921
+    { "SNDRV_CTL_IOCTL_HWDEP_INFO", SNDRV_CTL_IOCTL_HWDEP_INFO, -1, -1 }, // sound/asound.h:922
+    { "SNDRV_CTL_IOCTL_PCM_NEXT_DEVICE", SNDRV_CTL_IOCTL_PCM_NEXT_DEVICE, -1, -1 }, // sound/asound.h:923
+    { "SNDRV_CTL_IOCTL_PCM_INFO", SNDRV_CTL_IOCTL_PCM_INFO, -1, -1 }, // sound/asound.h:924
+    { "SNDRV_CTL_IOCTL_PCM_PREFER_SUBDEVICE", SNDRV_CTL_IOCTL_PCM_PREFER_SUBDEVICE, -1, -1 }, // sound/asound.h:925
+    { "SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE", SNDRV_CTL_IOCTL_RAWMIDI_NEXT_DEVICE, -1, -1 }, // sound/asound.h:926
+    { "SNDRV_CTL_IOCTL_RAWMIDI_INFO", SNDRV_CTL_IOCTL_RAWMIDI_INFO, -1, -1 }, // sound/asound.h:927
+    { "SNDRV_CTL_IOCTL_RAWMIDI_PREFER_SUBDEVICE", SNDRV_CTL_IOCTL_RAWMIDI_PREFER_SUBDEVICE, -1, -1 }, // sound/asound.h:928
+    { "SNDRV_CTL_IOCTL_POWER", SNDRV_CTL_IOCTL_POWER, -1, -1 }, // sound/asound.h:929
+    { "SNDRV_CTL_IOCTL_POWER_STATE", SNDRV_CTL_IOCTL_POWER_STATE, -1, -1 }, // sound/asound.h:930
+    { "SNDRV_COMPRESS_IOCTL_VERSION", SNDRV_COMPRESS_IOCTL_VERSION, -1, -1 }, // sound/compress_offload.h:163
+    { "SNDRV_COMPRESS_GET_CAPS", SNDRV_COMPRESS_GET_CAPS, -1, -1 }, // sound/compress_offload.h:164
+    { "SNDRV_COMPRESS_GET_CODEC_CAPS", SNDRV_COMPRESS_GET_CODEC_CAPS, -1, -1 }, // sound/compress_offload.h:165
+    { "SNDRV_COMPRESS_SET_PARAMS", SNDRV_COMPRESS_SET_PARAMS, -1, -1 }, // sound/compress_offload.h:167
+    { "SNDRV_COMPRESS_GET_PARAMS", SNDRV_COMPRESS_GET_PARAMS, -1, -1 }, // sound/compress_offload.h:168
+    { "SNDRV_COMPRESS_TSTAMP", SNDRV_COMPRESS_TSTAMP, -1, -1 }, // sound/compress_offload.h:173
+    { "SNDRV_COMPRESS_AVAIL", SNDRV_COMPRESS_AVAIL, -1, -1 }, // sound/compress_offload.h:174
+    { "SNDRV_COMPRESS_PAUSE", SNDRV_COMPRESS_PAUSE, -1, -1 }, // sound/compress_offload.h:175
+    { "SNDRV_COMPRESS_RESUME", SNDRV_COMPRESS_RESUME, -1, -1 }, // sound/compress_offload.h:176
+    { "SNDRV_COMPRESS_START", SNDRV_COMPRESS_START, -1, -1 }, // sound/compress_offload.h:177
+    { "SNDRV_COMPRESS_STOP", SNDRV_COMPRESS_STOP, -1, -1 }, // sound/compress_offload.h:178
+    { "SNDRV_COMPRESS_DRAIN", SNDRV_COMPRESS_DRAIN, -1, -1 }, // sound/compress_offload.h:179
+    { "SNDRV_SB_CSP_IOCTL_INFO", SNDRV_SB_CSP_IOCTL_INFO, -1, -1 }, // sound/sb16_csp.h:100
+    { "SNDRV_SB_CSP_IOCTL_UNLOAD_CODE", SNDRV_SB_CSP_IOCTL_UNLOAD_CODE, -1, -1 }, // sound/sb16_csp.h:111
+    { "SNDRV_SB_CSP_IOCTL_START", SNDRV_SB_CSP_IOCTL_START, -1, -1 }, // sound/sb16_csp.h:113
+    { "SNDRV_SB_CSP_IOCTL_STOP", SNDRV_SB_CSP_IOCTL_STOP, -1, -1 }, // sound/sb16_csp.h:115
+    { "SNDRV_SB_CSP_IOCTL_PAUSE", SNDRV_SB_CSP_IOCTL_PAUSE, -1, -1 }, // sound/sb16_csp.h:117
+    { "SNDRV_SB_CSP_IOCTL_RESTART", SNDRV_SB_CSP_IOCTL_RESTART, -1, -1 }, // sound/sb16_csp.h:
+    { "SNDRV_EMUX_IOCTL_VERSION", SNDRV_EMUX_IOCTL_VERSION, -1, -1 }, // sound/sfnt_info.h:205
+    { "SNDRV_EMUX_IOCTL_LOAD_PATCH", SNDRV_EMUX_IOCTL_LOAD_PATCH, -1, -1 }, // sound/sfnt_info.h:206
+    { "SNDRV_EMUX_IOCTL_RESET_SAMPLES", SNDRV_EMUX_IOCTL_RESET_SAMPLES, -1, -1 }, // sound/sfnt_info.h:207
+    { "SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES", SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES, -1, -1 }, // sound/sfnt_info.h:208
+    { "SNDRV_EMUX_IOCTL_MEM_AVAIL", SNDRV_EMUX_IOCTL_MEM_AVAIL, -1, -1 }, // sound/sfnt_info.h:209
+    { "SNDRV_EMUX_IOCTL_MISC_MODE", SNDRV_EMUX_IOCTL_MISC_MODE, -1, -1 }, // sound/sfnt_info.h:210
+    { "PPPIOCGFLAGS", PPPIOCGFLAGS, -1, -1 }, // net/if_ppp.h:139
+    { "PPPIOCSFLAGS", PPPIOCSFLAGS, -1, -1 }, // net/if_ppp.h:140
+    { "PPPIOCGASYNCMAP", PPPIOCGASYNCMAP, -1, -1 }, // net/if_ppp.h:141
+    { "PPPIOCSASYNCMAP", PPPIOCSASYNCMAP, -1, -1 }, // net/if_ppp.h:142
+    { "PPPIOCGUNIT", PPPIOCGUNIT, -1, -1 }, // net/if_ppp.h:143
+    { "PPPIOCGRASYNCMAP", PPPIOCGRASYNCMAP, -1, -1 }, // net/if_ppp.h:144
+    { "PPPIOCSRASYNCMAP", PPPIOCSRASYNCMAP, -1, -1 }, // net/if_ppp.h:145
+    { "PPPIOCGMRU", PPPIOCGMRU, -1, -1 }, // net/if_ppp.h:146
+    { "PPPIOCSMRU", PPPIOCSMRU, -1, -1 }, // net/if_ppp.h:147
+    { "PPPIOCSMAXCID", PPPIOCSMAXCID, -1, -1 }, // net/if_ppp.h:148
+    { "PPPIOCGXASYNCMAP", PPPIOCGXASYNCMAP, -1, -1 }, // net/if_ppp.h:149
+    { "PPPIOCSXASYNCMAP", PPPIOCSXASYNCMAP, -1, -1 }, // net/if_ppp.h:150
+    { "PPPIOCXFERUNIT", PPPIOCXFERUNIT, -1, -1 }, // net/if_ppp.h:151
+    { "PPPIOCSCOMPRESS", PPPIOCSCOMPRESS, -1, -1 }, // net/if_ppp.h:152
+    { "PPPIOCGNPMODE", PPPIOCGNPMODE, -1, -1 }, // net/if_ppp.h:153
+    { "PPPIOCSNPMODE", PPPIOCSNPMODE, -1, -1 }, // net/if_ppp.h:154
+    { "PPPIOCGDEBUG", PPPIOCGDEBUG, -1, -1 }, // net/if_ppp.h:155
+    { "PPPIOCSDEBUG", PPPIOCSDEBUG, -1, -1 }, // net/if_ppp.h:156
+    { "PPPIOCGIDLE", PPPIOCGIDLE, -1, -1 }, // net/if_ppp.h:157
+    { "ATM_GETLINKRATE", ATM_GETLINKRATE, -1, -1 }, // linux/atmdev.h:54
+    { "ATM_GETNAMES", ATM_GETNAMES, -1, -1 }, // linux/atmdev.h:56
+    { "ATM_GETTYPE", ATM_GETTYPE, -1, -1 }, // linux/atmdev.h:58
+    { "ATM_GETESI", ATM_GETESI, -1, -1 }, // linux/atmdev.h:60
+    { "ATM_GETADDR", ATM_GETADDR, -1, -1 }, // linux/atmdev.h:62
+    { "ATM_RSTADDR", ATM_RSTADDR, -1, -1 }, // linux/atmdev.h:64
+    { "ATM_ADDADDR", ATM_ADDADDR, -1, -1 }, // linux/atmdev.h:66
+    { "ATM_DELADDR", ATM_DELADDR, -1, -1 }, // linux/atmdev.h:68
+    { "ATM_GETCIRANGE", ATM_GETCIRANGE, -1, -1 }, // linux/atmdev.h:70
+    { "ATM_SETCIRANGE", ATM_SETCIRANGE, -1, -1 }, // linux/atmdev.h:72
+    { "ATM_SETESI", ATM_SETESI, -1, -1 }, // linux/atmdev.h:74
+    { "ATM_SETESIF", ATM_SETESIF, -1, -1 }, // linux/atmdev.h:76
+    { "ATM_ADDLECSADDR", ATM_ADDLECSADDR, -1, -1 }, // linux/atmdev.h:78
+    { "ATM_DELLECSADDR", ATM_DELLECSADDR, -1, -1 }, // linux/atmdev.h:80
+    { "ATM_GETLECSADDR", ATM_GETLECSADDR, -1, -1 }, // linux/atmdev.h:82
+    { "ATM_GETSTAT", ATM_GETSTAT, -1, -1 }, // linux/atmdev.h:85
+    { "ATM_GETSTATZ", ATM_GETSTATZ, -1, -1 }, // linux/atmdev.h:87
+    { "ATM_GETLOOP", ATM_GETLOOP, -1, -1 }, // linux/atmdev.h:89
+    { "ATM_SETLOOP", ATM_SETLOOP, -1, -1 }, // linux/atmdev.h:91
+    { "ATM_QUERYLOOP", ATM_QUERYLOOP, -1, -1 }, // linux/atmdev.h:93
+    { "ATM_SETSC", ATM_SETSC, -1, -1 }, // linux/atmdev.h:95
+    { "ATM_SETBACKEND", ATM_SETBACKEND, -1, -1 }, // linux/atmdev.h:97
+    { "ATM_NEWBACKENDIF", ATM_NEWBACKENDIF, -1, -1 }, // linux/atmdev.h:99
+    { "ATM_ADDPARTY", ATM_ADDPARTY, -1, -1 }, // linux/atmdev.h:101
+    { "ATM_DROPPARTY", ATM_DROPPARTY, -1, -1 }, // linux/atmdev.h:107
+    { "SNAPSHOT_FREEZE", SNAPSHOT_FREEZE, -1, -1 }, // linux/suspend_ioctls.h:16
+    { "SNAPSHOT_UNFREEZE", SNAPSHOT_UNFREEZE, -1, -1 }, // linux/suspend_ioctls.h:17
+    { "SNAPSHOT_ATOMIC_RESTORE", SNAPSHOT_ATOMIC_RESTORE, -1, -1 }, // linux/suspend_ioctls.h:18
+    { "SNAPSHOT_FREE", SNAPSHOT_FREE, -1, -1 }, // linux/suspend_ioctls.h:19
+    { "SNAPSHOT_FREE_SWAP_PAGES", SNAPSHOT_FREE_SWAP_PAGES, -1, -1 }, // linux/suspend_ioctls.h:20
+    { "SNAPSHOT_S2RAM", SNAPSHOT_S2RAM, -1, -1 }, // linux/suspend_ioctls.h:21
+    { "SNAPSHOT_SET_SWAP_AREA", SNAPSHOT_SET_SWAP_AREA, -1, -1 }, // linux/suspend_ioctls.h:22
+    { "SNAPSHOT_GET_IMAGE_SIZE", SNAPSHOT_GET_IMAGE_SIZE, -1, -1 }, // linux/suspend_ioctls.h:24
+    { "SNAPSHOT_PLATFORM_SUPPORT", SNAPSHOT_PLATFORM_SUPPORT, -1, -1 }, // linux/suspend_ioctls.h:25
+    { "SNAPSHOT_POWER_OFF", SNAPSHOT_POWER_OFF, -1, -1 }, // linux/suspend_ioctls.h:26
+    { "SNAPSHOT_CREATE_IMAGE", SNAPSHOT_CREATE_IMAGE, -1, -1 }, // linux/suspend_ioctls.h:27
+    { "SNAPSHOT_PREF_IMAGE_SIZE", SNAPSHOT_PREF_IMAGE_SIZE, -1, -1 }, // linux/suspend_ioctls.h:28
+    { "SNAPSHOT_AVAIL_SWAP_SIZE", SNAPSHOT_AVAIL_SWAP_SIZE, -1, -1 }, // linux/suspend_ioctls.h:29
+    { "SNAPSHOT_ALLOC_SWAP_PAGE", SNAPSHOT_ALLOC_SWAP_PAGE, -1, -1 }, // linux/suspend_ioctls.h:30
+    { "MGSL_IOCSPARAMS", MGSL_IOCSPARAMS, -1, -1 }, // linux/synclink.h:278
+    { "MGSL_IOCGPARAMS", MGSL_IOCGPARAMS, -1, -1 }, // linux/synclink.h:279
+    { "MGSL_IOCSTXIDLE", MGSL_IOCSTXIDLE, -1, -1 }, // linux/synclink.h:280
+    { "MGSL_IOCGTXIDLE", MGSL_IOCGTXIDLE, -1, -1 }, // linux/synclink.h:281
+    { "MGSL_IOCTXENABLE", MGSL_IOCTXENABLE, -1, -1 }, // linux/synclink.h:282
+    { "MGSL_IOCRXENABLE", MGSL_IOCRXENABLE, -1, -1 }, // linux/synclink.h:283
+    { "MGSL_IOCTXABORT", MGSL_IOCTXABORT, -1, -1 }, // linux/synclink.h:284
+    { "MGSL_IOCGSTATS", MGSL_IOCGSTATS, -1, -1 }, // linux/synclink.h:285
+    { "MGSL_IOCWAITEVENT", MGSL_IOCWAITEVENT, -1, -1 }, // linux/synclink.h:286
+    { "MGSL_IOCCLRMODCOUNT", MGSL_IOCCLRMODCOUNT, -1, -1 }, // linux/synclink.h:287
+    { "MGSL_IOCLOOPTXDONE", MGSL_IOCLOOPTXDONE, -1, -1 }, // linux/synclink.h:288
+    { "MGSL_IOCSIF", MGSL_IOCSIF, -1, -1 }, // linux/synclink.h:289
+    { "MGSL_IOCGIF", MGSL_IOCGIF, -1, -1 }, // linux/synclink.h:290
+    { "MGSL_IOCSGPIO", MGSL_IOCSGPIO, -1, -1 }, // linux/synclink.h:291
+    { "MGSL_IOCGGPIO", MGSL_IOCGGPIO, -1, -1 }, // linux/synclink.h:292
+    { "MGSL_IOCWAITGPIO", MGSL_IOCWAITGPIO, -1, -1 }, // linux/synclink.h:293
+    { "MGSL_IOCSXSYNC", MGSL_IOCSXSYNC, -1, -1 }, // linux/synclink.h:294
+    { "MGSL_IOCGXSYNC", MGSL_IOCGXSYNC, -1, -1 }, // linux/synclink.h:295
+    { "MGSL_IOCSXCTRL", MGSL_IOCSXCTRL, -1, -1 }, // linux/synclink.h:296
+    { "MGSL_IOCGXCTRL", MGSL_IOCGXCTRL, -1, -1 }, // linux/synclink.h:297
+    { "MEDIA_IOC_DEVICE_INFO", MEDIA_IOC_DEVICE_INFO, -1, -1 }, // linux/media.h:129
+    { "MEDIA_IOC_ENUM_ENTITIES", MEDIA_IOC_ENUM_ENTITIES, -1, -1 }, // linux/media.h:130
+    { "MEDIA_IOC_ENUM_LINKS", MEDIA_IOC_ENUM_LINKS, -1, -1 }, // linux/media.h:131
+    { "MEDIA_IOC_SETUP_LINK", MEDIA_IOC_SETUP_LINK, -1, -1 }, // linux/media.h:132
+    { "FBIO_RADEON_GET_MIRROR", FBIO_RADEON_GET_MIRROR, -1, -1 }, // linux/radeonfb.h:11
+    { "FBIO_RADEON_SET_MIRROR", FBIO_RADEON_SET_MIRROR, -1, -1 }, // linux/radeonfb.h:12
+    { "CA_RESET", CA_RESET, -1, -1 }, // linux/dvb/ca.h:81
+    { "CA_GET_CAP", CA_GET_CAP, -1, -1 }, // linux/dvb/ca.h:82
+    { "CA_GET_SLOT_INFO", CA_GET_SLOT_INFO, -1, -1 }, // linux/dvb/ca.h:83
+    { "CA_GET_DESCR_INFO", CA_GET_DESCR_INFO, -1, -1 }, // linux/dvb/ca.h:84
+    { "CA_GET_MSG", CA_GET_MSG, -1, -1 }, // linux/dvb/ca.h:85
+    { "CA_SEND_MSG", CA_SEND_MSG, -1, -1 }, // linux/dvb/ca.h:86
+    { "CA_SET_DESCR", CA_SET_DESCR, -1, -1 }, // linux/dvb/ca.h:87
+    { "CA_SET_PID", CA_SET_PID, -1, -1 }, // linux/dvb/ca.h:88
+    { "VIDEO_STOP", VIDEO_STOP, -1, -1 }, // linux/dvb/video.h:227
+    { "VIDEO_PLAY", VIDEO_PLAY, -1, -1 }, // linux/dvb/video.h:228
+    { "VIDEO_FREEZE", VIDEO_FREEZE, -1, -1 }, // linux/dvb/video.h:229
+    { "VIDEO_CONTINUE", VIDEO_CONTINUE, -1, -1 }, // linux/dvb/video.h:230
+    { "VIDEO_SELECT_SOURCE", VIDEO_SELECT_SOURCE, -1, -1 }, // linux/dvb/video.h:231
+    { "VIDEO_SET_BLANK", VIDEO_SET_BLANK, -1, -1 }, // linux/dvb/video.h:232
+    { "VIDEO_GET_STATUS", VIDEO_GET_STATUS, -1, -1 }, // linux/dvb/video.h:233
+    { "VIDEO_GET_EVENT", VIDEO_GET_EVENT, -1, -1 }, // linux/dvb/video.h:234
+    { "VIDEO_SET_DISPLAY_FORMAT", VIDEO_SET_DISPLAY_FORMAT, -1, -1 }, // linux/dvb/video.h:235
+    { "VIDEO_STILLPICTURE", VIDEO_STILLPICTURE, -1, -1 }, // linux/dvb/video.h:236
+    { "VIDEO_FAST_FORWARD", VIDEO_FAST_FORWARD, -1, -1 }, // linux/dvb/video.h:237
+    { "VIDEO_SLOWMOTION", VIDEO_SLOWMOTION, -1, -1 }, // linux/dvb/video.h:238
+    { "VIDEO_GET_CAPABILITIES", VIDEO_GET_CAPABILITIES, -1, -1 }, // linux/dvb/video.h:239
+    { "VIDEO_CLEAR_BUFFER", VIDEO_CLEAR_BUFFER, -1, -1 }, // linux/dvb/video.h:240
+    { "VIDEO_SET_ID", VIDEO_SET_ID, -1, -1 }, // linux/dvb/video.h:241
+    { "VIDEO_SET_STREAMTYPE", VIDEO_SET_STREAMTYPE, -1, -1 }, // linux/dvb/video.h:242
+    { "VIDEO_SET_FORMAT", VIDEO_SET_FORMAT, -1, -1 }, // linux/dvb/video.h:243
+    { "VIDEO_SET_SYSTEM", VIDEO_SET_SYSTEM, -1, -1 }, // linux/dvb/video.h:244
+    { "VIDEO_SET_HIGHLIGHT", VIDEO_SET_HIGHLIGHT, -1, -1 }, // linux/dvb/video.h:245
+    { "VIDEO_SET_SPU", VIDEO_SET_SPU, -1, -1 }, // linux/dvb/video.h:246
+    { "VIDEO_SET_SPU_PALETTE", VIDEO_SET_SPU_PALETTE, -1, -1 }, // linux/dvb/video.h:247
+    { "VIDEO_GET_NAVI", VIDEO_GET_NAVI, -1, -1 }, // linux/dvb/video.h:248
+    { "VIDEO_SET_ATTRIBUTES", VIDEO_SET_ATTRIBUTES, -1, -1 }, // linux/dvb/video.h:249
+    { "VIDEO_GET_SIZE", VIDEO_GET_SIZE, -1, -1 }, // linux/dvb/video.h:250
+    { "VIDEO_GET_FRAME_RATE", VIDEO_GET_FRAME_RATE, -1, -1 }, // linux/dvb/video.h:251
+    { "VIDEO_GET_PTS", VIDEO_GET_PTS, -1, -1 }, // linux/dvb/video.h:264
+    { "VIDEO_GET_FRAME_COUNT", VIDEO_GET_FRAME_COUNT, -1, -1 }, // linux/dvb/video.h:267
+    { "VIDEO_COMMAND", VIDEO_COMMAND, -1, -1 }, // linux/dvb/video.h:269
+    { "VIDEO_TRY_COMMAND", VIDEO_TRY_COMMAND, -1, -1 }, // linux/dvb/video.h:270
+    { "FE_SET_PROPERTY", FE_SET_PROPERTY, -1, -1 }, // linux/dvb/frontend.h:551
+    { "FE_GET_PROPERTY", FE_GET_PROPERTY, -1, -1 }, // linux/dvb/frontend.h:552
+    { "FE_GET_INFO", FE_GET_INFO, -1, -1 }, // linux/dvb/frontend.h:565
+    { "FE_DISEQC_RESET_OVERLOAD", FE_DISEQC_RESET_OVERLOAD, -1, -1 }, // linux/dvb/frontend.h:567
+    { "FE_DISEQC_SEND_MASTER_CMD", FE_DISEQC_SEND_MASTER_CMD, -1, -1 }, // linux/dvb/frontend.h:568
+    { "FE_DISEQC_RECV_SLAVE_REPLY", FE_DISEQC_RECV_SLAVE_REPLY, -1, -1 }, // linux/dvb/frontend.h:569
+    { "FE_DISEQC_SEND_BURST", FE_DISEQC_SEND_BURST, -1, -1 }, // linux/dvb/frontend.h:570
+    { "FE_SET_TONE", FE_SET_TONE, -1, -1 }, // linux/dvb/frontend.h:572
+    { "FE_SET_VOLTAGE", FE_SET_VOLTAGE, -1, -1 }, // linux/dvb/frontend.h:573
+    { "FE_ENABLE_HIGH_LNB_VOLTAGE", FE_ENABLE_HIGH_LNB_VOLTAGE, -1, -1 }, // linux/dvb/frontend.h:574
+    { "FE_READ_STATUS", FE_READ_STATUS, -1, -1 }, // linux/dvb/frontend.h:576
+    { "FE_READ_BER", FE_READ_BER, -1, -1 }, // linux/dvb/frontend.h:577
+    { "FE_READ_SIGNAL_STRENGTH", FE_READ_SIGNAL_STRENGTH, -1, -1 }, // linux/dvb/frontend.h:578
+    { "FE_READ_SNR", FE_READ_SNR, -1, -1 }, // linux/dvb/frontend.h:579
+    { "FE_READ_UNCORRECTED_BLOCKS", FE_READ_UNCORRECTED_BLOCKS, -1, -1 }, // linux/dvb/frontend.h:580
+    { "FE_SET_FRONTEND", FE_SET_FRONTEND, -1, -1 }, // linux/dvb/frontend.h:582
+    { "FE_GET_FRONTEND", FE_GET_FRONTEND, -1, -1 }, // linux/dvb/frontend.h:583
+    { "FE_SET_FRONTEND_TUNE_MODE", FE_SET_FRONTEND_TUNE_MODE, -1, -1 }, // linux/dvb/frontend.h:584
+    { "FE_GET_EVENT", FE_GET_EVENT, -1, -1 }, // linux/dvb/frontend.h:585
+    { "FE_DISHNETWORK_SEND_LEGACY_CMD", FE_DISHNETWORK_SEND_LEGACY_CMD, -1, -1 }, // linux/dvb/frontend.h:587
+    { "AUDIO_STOP", AUDIO_STOP, -1, -1 }, // linux/dvb/audio.h:101
+    { "AUDIO_PLAY", AUDIO_PLAY, -1, -1 }, // linux/dvb/audio.h:102
+    { "AUDIO_PAUSE", AUDIO_PAUSE, -1, -1 }, // linux/dvb/audio.h:103
+    { "AUDIO_CONTINUE", AUDIO_CONTINUE, -1, -1 }, // linux/dvb/audio.h:104
+    { "AUDIO_SELECT_SOURCE", AUDIO_SELECT_SOURCE, -1, -1 }, // linux/dvb/audio.h:105
+    { "AUDIO_SET_MUTE", AUDIO_SET_MUTE, -1, -1 }, // linux/dvb/audio.h:106
+    { "AUDIO_SET_AV_SYNC", AUDIO_SET_AV_SYNC, -1, -1 }, // linux/dvb/audio.h:107
+    { "AUDIO_SET_BYPASS_MODE", AUDIO_SET_BYPASS_MODE, -1, -1 }, // linux/dvb/audio.h:108
+    { "AUDIO_CHANNEL_SELECT", AUDIO_CHANNEL_SELECT, -1, -1 }, // linux/dvb/audio.h:109
+    { "AUDIO_GET_STATUS", AUDIO_GET_STATUS, -1, -1 }, // linux/dvb/audio.h:110
+    { "AUDIO_GET_CAPABILITIES", AUDIO_GET_CAPABILITIES, -1, -1 }, // linux/dvb/audio.h:112
+    { "AUDIO_CLEAR_BUFFER", AUDIO_CLEAR_BUFFER, -1, -1 }, // linux/dvb/audio.h:113
+    { "AUDIO_SET_ID", AUDIO_SET_ID, -1, -1 }, // linux/dvb/audio.h:114
+    { "AUDIO_SET_MIXER", AUDIO_SET_MIXER, -1, -1 }, // linux/dvb/audio.h:115
+    { "AUDIO_SET_STREAMTYPE", AUDIO_SET_STREAMTYPE, -1, -1 }, // linux/dvb/audio.h:116
+    { "AUDIO_SET_EXT_ID", AUDIO_SET_EXT_ID, -1, -1 }, // linux/dvb/audio.h:117
+    { "AUDIO_SET_ATTRIBUTES", AUDIO_SET_ATTRIBUTES, -1, -1 }, // linux/dvb/audio.h:118
+    { "AUDIO_SET_KARAOKE", AUDIO_SET_KARAOKE, -1, -1 }, // linux/dvb/audio.h:119
+    { "AUDIO_GET_PTS", AUDIO_GET_PTS, -1, -1 }, // linux/dvb/audio.h:132
+    { "AUDIO_BILINGUAL_CHANNEL_SELECT", AUDIO_BILINGUAL_CHANNEL_SELECT, -1, -1 }, // linux/dvb/audio.h:133
+    { "DMX_START", DMX_START, -1, -1 }, // linux/dvb/dmx.h:141
+    { "DMX_STOP", DMX_STOP, -1, -1 }, // linux/dvb/dmx.h:142
+    { "DMX_SET_FILTER", DMX_SET_FILTER, -1, -1 }, // linux/dvb/dmx.h:143
+    { "DMX_SET_PES_FILTER", DMX_SET_PES_FILTER, -1, -1 }, // linux/dvb/dmx.h:144
+    { "DMX_SET_BUFFER_SIZE", DMX_SET_BUFFER_SIZE, -1, -1 }, // linux/dvb/dmx.h:145
+    { "DMX_GET_PES_PIDS", DMX_GET_PES_PIDS, -1, -1 }, // linux/dvb/dmx.h:146
+    { "DMX_GET_CAPS", DMX_GET_CAPS, -1, -1 }, // linux/dvb/dmx.h:147
+    { "DMX_SET_SOURCE", DMX_SET_SOURCE, -1, -1 }, // linux/dvb/dmx.h:148
+    { "DMX_GET_STC", DMX_GET_STC, -1, -1 }, // linux/dvb/dmx.h:149
+    { "DMX_ADD_PID", DMX_ADD_PID, -1, -1 }, // linux/dvb/dmx.h:150
+    { "DMX_REMOVE_PID", DMX_REMOVE_PID, -1, -1 }, // linux/dvb/dmx.h:151
+    { "NET_ADD_IF", NET_ADD_IF, -1, -1 }, // linux/dvb/net.h:38
+    { "NET_REMOVE_IF", NET_REMOVE_IF, -1, -1 }, // linux/dvb/net.h:39
+    { "NET_GET_IF", NET_GET_IF, -1, -1 }, // linux/dvb/net.h:40
+    { "__NET_ADD_IF_OLD", __NET_ADD_IF_OLD, -1, -1 }, // linux/dvb/net.h:48
+    { "__NET_GET_IF_OLD", __NET_GET_IF_OLD, -1, -1 }, // linux/dvb/net.h:49
+    { "OSD_SEND_CMD", OSD_SEND_CMD, -1, -1 }, // linux/dvb/osd.h:141
+    { "OSD_GET_CAPABILITY", OSD_GET_CAPABILITY, -1, -1 }, // linux/dvb/osd.h:142
+    { "ATMLEC_CTRL", ATMLEC_CTRL, -1, -1 }, // linux/atmlec.h:17
+    { "ATMLEC_DATA", ATMLEC_DATA, -1, -1 }, // linux/atmlec.h:18
+    { "ATMLEC_MCAST", ATMLEC_MCAST, -1, -1 }, // linux/atmlec.h:19
+    { "MATROXFB_SET_OUTPUT_MODE", MATROXFB_SET_OUTPUT_MODE, -1, -1 }, // linux/matroxfb.h:19
+    { "MATROXFB_GET_OUTPUT_MODE", MATROXFB_GET_OUTPUT_MODE, -1, -1 }, // linux/matroxfb.h:20
+    { "MATROXFB_SET_OUTPUT_CONNECTION", MATROXFB_SET_OUTPUT_CONNECTION, -1, -1 }, // linux/matroxfb.h:27
+    { "MATROXFB_GET_OUTPUT_CONNECTION", MATROXFB_GET_OUTPUT_CONNECTION, -1, -1 }, // linux/matroxfb.h:29
+    { "MATROXFB_GET_AVAILABLE_OUTPUTS", MATROXFB_GET_AVAILABLE_OUTPUTS, -1, -1 }, // linux/matroxfb.h:31
+    { "MATROXFB_GET_ALL_OUTPUTS", MATROXFB_GET_ALL_OUTPUTS, -1, -1 }, // linux/matroxfb.h:33
+    { "VHOST_GET_FEATURES", VHOST_GET_FEATURES, -1, -1 }, // linux/vhost.h:72
+    { "VHOST_SET_FEATURES", VHOST_SET_FEATURES, -1, -1 }, // linux/vhost.h:73
+    { "VHOST_SET_OWNER", VHOST_SET_OWNER, -1, -1 }, // linux/vhost.h:78
+    { "VHOST_RESET_OWNER", VHOST_RESET_OWNER, -1, -1 }, // linux/vhost.h:81
+    { "VHOST_SET_MEM_TABLE", VHOST_SET_MEM_TABLE, -1, -1 }, // linux/vhost.h:84
+    { "VHOST_SET_LOG_BASE", VHOST_SET_LOG_BASE, -1, -1 }, // linux/vhost.h:91
+    { "VHOST_SET_LOG_FD", VHOST_SET_LOG_FD, -1, -1 }, // linux/vhost.h:93
+    { "VHOST_SET_VRING_NUM", VHOST_SET_VRING_NUM, -1, -1 }, // linux/vhost.h:98
+    { "VHOST_SET_VRING_ADDR", VHOST_SET_VRING_ADDR, -1, -1 }, // linux/vhost.h:100
+    { "VHOST_SET_VRING_BASE", VHOST_SET_VRING_BASE, -1, -1 }, // linux/vhost.h:102
+    { "VHOST_GET_VRING_BASE", VHOST_GET_VRING_BASE, -1, -1 }, // linux/vhost.h:104
+    { "VHOST_SET_VRING_KICK", VHOST_SET_VRING_KICK, -1, -1 }, // linux/vhost.h:110
+    { "VHOST_SET_VRING_CALL", VHOST_SET_VRING_CALL, -1, -1 }, // linux/vhost.h:112
+    { "VHOST_SET_VRING_ERR", VHOST_SET_VRING_ERR, -1, -1 }, // linux/vhost.h:114
+    { "VHOST_NET_SET_BACKEND", VHOST_NET_SET_BACKEND, -1, -1 }, // linux/vhost.h:122
+    { "PPS_GETPARAMS", PPS_GETPARAMS, -1, -1 }, // linux/pps.h:125
+    { "PPS_SETPARAMS", PPS_SETPARAMS, -1, -1 }, // linux/pps.h:126
+    { "PPS_GETCAP", PPS_GETCAP, -1, -1 }, // linux/pps.h:127
+    { "PPS_FETCH", PPS_FETCH, -1, -1 }, // linux/pps.h:128
+    { "PPS_KC_BIND", PPS_KC_BIND, -1, -1 }, // linux/pps.h:129
+    { "CM_IOCGATR", CM_IOCGATR, -1, -1 }, // linux/cm4000_cs.h:45
+    { "CM_IOSDBGLVL", CM_IOSDBGLVL, -1, -1 }, // linux/cm4000_cs.h:50
+    { "TUNSETNOCSUM", TUNSETNOCSUM, -1, -1 }, // linux/if_tun.h:41
+    { "TUNSETDEBUG", TUNSETDEBUG, -1, -1 }, // linux/if_tun.h:42
+    { "TUNSETIFF", TUNSETIFF, -1, -1 }, // linux/if_tun.h:43
+    { "TUNSETPERSIST", TUNSETPERSIST, -1, -1 }, // linux/if_tun.h:44
+    { "TUNSETOWNER", TUNSETOWNER, -1, -1 }, // linux/if_tun.h:45
+    { "TUNSETLINK", TUNSETLINK, -1, -1 }, // linux/if_tun.h:46
+    { "TUNSETGROUP", TUNSETGROUP, -1, -1 }, // linux/if_tun.h:47
+    { "TUNGETFEATURES", TUNGETFEATURES, -1, -1 }, // linux/if_tun.h:48
+    { "TUNSETOFFLOAD", TUNSETOFFLOAD, -1, -1 }, // linux/if_tun.h:49
+    { "TUNSETTXFILTER", TUNSETTXFILTER, -1, -1 }, // linux/if_tun.h:50
+    { "TUNGETIFF", TUNGETIFF, -1, -1 }, // linux/if_tun.h:51
+    { "TUNGETSNDBUF", TUNGETSNDBUF, -1, -1 }, // linux/if_tun.h:52
+    { "TUNSETSNDBUF", TUNSETSNDBUF, -1, -1 }, // linux/if_tun.h:53
+    { "TUNATTACHFILTER", TUNATTACHFILTER, -1, -1 }, // linux/if_tun.h:54
+    { "TUNDETACHFILTER", TUNDETACHFILTER, -1, -1 }, // linux/if_tun.h:55
+    { "TUNGETVNETHDRSZ", TUNGETVNETHDRSZ, -1, -1 }, // linux/if_tun.h:56
+    { "TUNSETVNETHDRSZ", TUNSETVNETHDRSZ, -1, -1 }, // linux/if_tun.h:57
+    { "FBIO_WAITEVENT", FBIO_WAITEVENT, -1, -1 }, // linux/arcfb.h:4
+    { "FBIO_GETCONTROL2", FBIO_GETCONTROL2, -1, -1 }, // linux/arcfb.h:5
+    { "HIDIOCGVERSION", HIDIOCGVERSION, -1, -1 }, // linux/hiddev.h:154
+    { "HIDIOCAPPLICATION", HIDIOCAPPLICATION, -1, -1 }, // linux/hiddev.h:155
+    { "HIDIOCGDEVINFO", HIDIOCGDEVINFO, -1, -1 }, // linux/hiddev.h:156
+    { "HIDIOCGSTRING", HIDIOCGSTRING, -1, -1 }, // linux/hiddev.h:157
+    { "HIDIOCINITREPORT", HIDIOCINITREPORT, -1, -1 }, // linux/hiddev.h:158
+    { "HIDIOCGREPORT", HIDIOCGREPORT, -1, -1 }, // linux/hiddev.h:160
+    { "HIDIOCSREPORT", HIDIOCSREPORT, -1, -1 }, // linux/hiddev.h:161
+    { "HIDIOCGREPORTINFO", HIDIOCGREPORTINFO, -1, -1 }, // linux/hiddev.h:162
+    { "HIDIOCGFIELDINFO", HIDIOCGFIELDINFO, -1, -1 }, // linux/hiddev.h:163
+    { "HIDIOCGUSAGE", HIDIOCGUSAGE, -1, -1 }, // linux/hiddev.h:164
+    { "HIDIOCSUSAGE", HIDIOCSUSAGE, -1, -1 }, // linux/hiddev.h:165
+    { "HIDIOCGUCODE", HIDIOCGUCODE, -1, -1 }, // linux/hiddev.h:166
+    { "HIDIOCGFLAG", HIDIOCGFLAG, -1, -1 }, // linux/hiddev.h:167
+    { "HIDIOCSFLAG", HIDIOCSFLAG, -1, -1 }, // linux/hiddev.h:168
+    { "HIDIOCGCOLLECTIONINDEX", HIDIOCGCOLLECTIONINDEX, -1, -1 }, // linux/hiddev.h:169
+    { "HIDIOCGCOLLECTIONINFO", HIDIOCGCOLLECTIONINFO, -1, -1 }, // linux/hiddev.h:170
+    { "HIDIOCGUSAGES", HIDIOCGUSAGES, -1, -1 }, // linux/hiddev.h:174
+    { "HIDIOCSUSAGES", HIDIOCSUSAGES, -1, -1 }, // linux/hiddev.h:175
+    { "PTP_CLOCK_GETCAPS", PTP_CLOCK_GETCAPS, -1, -1 }, // linux/ptp_clock.h:85
+    { "PTP_EXTTS_REQUEST", PTP_EXTTS_REQUEST, -1, -1 }, // linux/ptp_clock.h:86
+    { "PTP_PEROUT_REQUEST", PTP_PEROUT_REQUEST, -1, -1 }, // linux/ptp_clock.h:87
+    { "PTP_ENABLE_PPS", PTP_ENABLE_PPS, -1, -1 }, // linux/ptp_clock.h:88
+    { "IPMICTL_SEND_COMMAND", IPMICTL_SEND_COMMAND, -1, -1 }, // linux/ipmi.h:272
+    { "IPMICTL_SEND_COMMAND_SETTIME", IPMICTL_SEND_COMMAND_SETTIME, -1, -1 }, // linux/ipmi.h:294
+    { "IPMICTL_RECEIVE_MSG", IPMICTL_RECEIVE_MSG, -1, -1 }, // linux/ipmi.h:332
+    { "IPMICTL_RECEIVE_MSG_TRUNC", IPMICTL_RECEIVE_MSG_TRUNC, -1, -1 }, // linux/ipmi.h:340
+    { "IPMICTL_REGISTER_FOR_CMD", IPMICTL_REGISTER_FOR_CMD, -1, -1 }, // linux/ipmi.h:355
+    { "IPMICTL_UNREGISTER_FOR_CMD", IPMICTL_UNREGISTER_FOR_CMD, -1, -1 }, // linux/ipmi.h:362
+    { "IPMICTL_REGISTER_FOR_CMD_CHANS", IPMICTL_REGISTER_FOR_CMD_CHANS, -1, -1 }, // linux/ipmi.h:384
+    { "IPMICTL_UNREGISTER_FOR_CMD_CHANS", IPMICTL_UNREGISTER_FOR_CMD_CHANS, -1, -1 }, // linux/ipmi.h:391
+    { "IPMICTL_SET_GETS_EVENTS_CMD", IPMICTL_SET_GETS_EVENTS_CMD, -1, -1 }, // linux/ipmi.h:400
+    { "IPMICTL_SET_MY_ADDRESS_CMD", IPMICTL_SET_MY_ADDRESS_CMD, -1, -1 }, // linux/ipmi.h:423
+    { "IPMICTL_GET_MY_ADDRESS_CMD", IPMICTL_GET_MY_ADDRESS_CMD, -1, -1 }, // linux/ipmi.h:424
+    { "IPMICTL_SET_MY_LUN_CMD", IPMICTL_SET_MY_LUN_CMD, -1, -1 }, // linux/ipmi.h:425
+    { "IPMICTL_GET_MY_LUN_CMD", IPMICTL_GET_MY_LUN_CMD, -1, -1 }, // linux/ipmi.h:426
+    { "IPMICTL_SET_TIMING_PARMS_CMD", IPMICTL_SET_TIMING_PARMS_CMD, -1, -1 }, // linux/ipmi.h:436
+    { "IPMICTL_GET_TIMING_PARMS_CMD", IPMICTL_GET_TIMING_PARMS_CMD, -1, -1 }, // linux/ipmi.h:438
+    { "IPMICTL_GET_MAINTENANCE_MODE_CMD", IPMICTL_GET_MAINTENANCE_MODE_CMD, -1, -1 }, // linux/ipmi.h:445
+    { "IPMICTL_SET_MAINTENANCE_MODE_CMD", IPMICTL_SET_MAINTENANCE_MODE_CMD, -1, -1 }, // linux/ipmi.h:446
+    { "HE_GET_REG", HE_GET_REG, -1, -1 }, // linux/atm_he.h:8
+    { "NVRAM_INIT", NVRAM_INIT, -1, -1 }, // linux/nvram.h:7
+    { "NVRAM_SETCKS", NVRAM_SETCKS, -1, -1 }, // linux/nvram.h:8
+    { "DM_VERSION", DM_VERSION, -1, -1 }, // linux/dm-ioctl.h:248
+    { "DM_REMOVE_ALL", DM_REMOVE_ALL, -1, -1 }, // linux/dm-ioctl.h:249
+    { "DM_LIST_DEVICES", DM_LIST_DEVICES, -1, -1 }, // linux/dm-ioctl.h:250
+    { "DM_DEV_CREATE", DM_DEV_CREATE, -1, -1 }, // linux/dm-ioctl.h:252
+    { "DM_DEV_REMOVE", DM_DEV_REMOVE, -1, -1 }, // linux/dm-ioctl.h:253
+    { "DM_DEV_RENAME", DM_DEV_RENAME, -1, -1 }, // linux/dm-ioctl.h:254
+    { "DM_DEV_SUSPEND", DM_DEV_SUSPEND, -1, -1 }, // linux/dm-ioctl.h:255
+    { "DM_DEV_STATUS", DM_DEV_STATUS, -1, -1 }, // linux/dm-ioctl.h:256
+    { "DM_DEV_WAIT", DM_DEV_WAIT, -1, -1 }, // linux/dm-ioctl.h:257
+    { "DM_TABLE_LOAD", DM_TABLE_LOAD, -1, -1 }, // linux/dm-ioctl.h:259
+    { "DM_TABLE_CLEAR", DM_TABLE_CLEAR, -1, -1 }, // linux/dm-ioctl.h:260
+    { "DM_TABLE_DEPS", DM_TABLE_DEPS, -1, -1 }, // linux/dm-ioctl.h:261
+    { "DM_TABLE_STATUS", DM_TABLE_STATUS, -1, -1 }, // linux/dm-ioctl.h:262
+    { "DM_LIST_VERSIONS", DM_LIST_VERSIONS, -1, -1 }, // linux/dm-ioctl.h:264
+    { "DM_TARGET_MSG", DM_TARGET_MSG, -1, -1 }, // linux/dm-ioctl.h:266
+    { "DM_DEV_SET_GEOMETRY", DM_DEV_SET_GEOMETRY, -1, -1 }, // linux/dm-ioctl.h:267
+    { "CCISS_GETPCIINFO", CCISS_GETPCIINFO, -1, -1 }, // linux/cciss_ioctl.h:64
+    { "CCISS_GETINTINFO", CCISS_GETINTINFO, -1, -1 }, // linux/cciss_ioctl.h:66
+    { "CCISS_SETINTINFO", CCISS_SETINTINFO, -1, -1 }, // linux/cciss_ioctl.h:67
+    { "CCISS_GETNODENAME", CCISS_GETNODENAME, -1, -1 }, // linux/cciss_ioctl.h:69
+    { "CCISS_SETNODENAME", CCISS_SETNODENAME, -1, -1 }, // linux/cciss_ioctl.h:70
+    { "CCISS_GETHEARTBEAT", CCISS_GETHEARTBEAT, -1, -1 }, // linux/cciss_ioctl.h:72
+    { "CCISS_GETBUSTYPES", CCISS_GETBUSTYPES, -1, -1 }, // linux/cciss_ioctl.h:73
+    { "CCISS_GETFIRMVER", CCISS_GETFIRMVER, -1, -1 }, // linux/cciss_ioctl.h:74
+    { "CCISS_GETDRIVVER", CCISS_GETDRIVVER, -1, -1 }, // linux/cciss_ioctl.h:75
+    { "CCISS_REVALIDVOLS", CCISS_REVALIDVOLS, -1, -1 }, // linux/cciss_ioctl.h:76
+    { "CCISS_PASSTHRU", CCISS_PASSTHRU, -1, -1 }, // linux/cciss_ioctl.h:77
+    { "CCISS_DEREGDISK", CCISS_DEREGDISK, -1, -1 }, // linux/cciss_ioctl.h:78
+    { "CCISS_REGNEWDISK", CCISS_REGNEWDISK, -1, -1 }, // linux/cciss_ioctl.h:81
+    { "CCISS_REGNEWD", CCISS_REGNEWD, -1, -1 }, // linux/cciss_ioctl.h:83
+    { "CCISS_RESCANDISK", CCISS_RESCANDISK, -1, -1 }, // linux/cciss_ioctl.h:84
+    { "CCISS_GETLUNINFO", CCISS_GETLUNINFO, -1, -1 }, // linux/cciss_ioctl.h:85
+    { "CCISS_BIG_PASSTHRU", CCISS_BIG_PASSTHRU, -1, -1 }, // linux/cciss_ioctl.h:86
+    { "VFAT_IOCTL_READDIR_BOTH", VFAT_IOCTL_READDIR_BOTH, -1, -1 }, // linux/msdos_fs.h:102
+    { "VFAT_IOCTL_READDIR_SHORT", VFAT_IOCTL_READDIR_SHORT, -1, -1 }, // linux/msdos_fs.h:103
+    { "FAT_IOCTL_GET_ATTRIBUTES", FAT_IOCTL_GET_ATTRIBUTES, -1, -1 }, // linux/msdos_fs.h:105
+    { "FAT_IOCTL_SET_ATTRIBUTES", FAT_IOCTL_SET_ATTRIBUTES, -1, -1 }, // linux/msdos_fs.h:106
+    { "CAPI_REGISTER", CAPI_REGISTER, -1, -1 }, // linux/capi.h:29
+    { "CAPI_GET_MANUFACTURER", CAPI_GET_MANUFACTURER, -1, -1 }, // linux/capi.h:37
+    { "CAPI_GET_VERSION", CAPI_GET_VERSION, -1, -1 }, // linux/capi.h:50
+    { "CAPI_GET_SERIAL", CAPI_GET_SERIAL, -1, -1 }, // linux/capi.h:57
+    { "CAPI_GET_PROFILE", CAPI_GET_PROFILE, -1, -1 }, // linux/capi.h:74
+    { "CAPI_MANUFACTURER_CMD", CAPI_MANUFACTURER_CMD, -1, -1 }, // linux/capi.h:85
+    { "CAPI_GET_ERRCODE", CAPI_GET_ERRCODE, -1, -1 }, // linux/capi.h:93
+    { "CAPI_INSTALLED", CAPI_INSTALLED, -1, -1 }, // linux/capi.h:98
+    { "CAPI_GET_FLAGS", CAPI_GET_FLAGS, -1, -1 }, // linux/capi.h:123
+    { "CAPI_SET_FLAGS", CAPI_SET_FLAGS, -1, -1 }, // linux/capi.h:124
+    { "CAPI_CLR_FLAGS", CAPI_CLR_FLAGS, -1, -1 }, // linux/capi.h:125
+    { "CAPI_NCCI_OPENCOUNT", CAPI_NCCI_OPENCOUNT, -1, -1 }, // linux/capi.h:127
+    { "CAPI_NCCI_GETUNIT", CAPI_NCCI_GETUNIT, -1, -1 }, // linux/capi.h:129
+    { "USBDEVFS_CONTROL", USBDEVFS_CONTROL, -1, -1 }, // linux/usbdevice_fs.h:148
+    { "USBDEVFS_BULK", USBDEVFS_BULK, -1, -1 }, // linux/usbdevice_fs.h:150
+    { "USBDEVFS_RESETEP", USBDEVFS_RESETEP, -1, -1 }, // linux/usbdevice_fs.h:152
+    { "USBDEVFS_SETINTERFACE", USBDEVFS_SETINTERFACE, -1, -1 }, // linux/usbdevice_fs.h:153
+    { "USBDEVFS_SETCONFIGURATION", USBDEVFS_SETCONFIGURATION, -1, -1 }, // linux/usbdevice_fs.h:154
+    { "USBDEVFS_GETDRIVER", USBDEVFS_GETDRIVER, -1, -1 }, // linux/usbdevice_fs.h:155
+    { "USBDEVFS_SUBMITURB", USBDEVFS_SUBMITURB, -1, -1 }, // linux/usbdevice_fs.h:156
+    { "USBDEVFS_DISCARDURB", USBDEVFS_DISCARDURB, -1, -1 }, // linux/usbdevice_fs.h:158
+    { "USBDEVFS_REAPURB", USBDEVFS_REAPURB, -1, -1 }, // linux/usbdevice_fs.h:159
+    { "USBDEVFS_REAPURB32", USBDEVFS_REAPURB32, -1, -1 }, // linux/usbdevice_fs.h:160
+    { "USBDEVFS_REAPURBNDELAY", USBDEVFS_REAPURBNDELAY, -1, -1 }, // linux/usbdevice_fs.h:161
+    { "USBDEVFS_REAPURBNDELAY32", USBDEVFS_REAPURBNDELAY32, -1, -1 }, // linux/usbdevice_fs.h:162
+    { "USBDEVFS_DISCSIGNAL", USBDEVFS_DISCSIGNAL, -1, -1 }, // linux/usbdevice_fs.h:163
+    { "USBDEVFS_CLAIMINTERFACE", USBDEVFS_CLAIMINTERFACE, -1, -1 }, // linux/usbdevice_fs.h:165
+    { "USBDEVFS_RELEASEINTERFACE", USBDEVFS_RELEASEINTERFACE, -1, -1 }, // linux/usbdevice_fs.h:166
+    { "USBDEVFS_CONNECTINFO", USBDEVFS_CONNECTINFO, -1, -1 }, // linux/usbdevice_fs.h:167
+    { "USBDEVFS_IOCTL", USBDEVFS_IOCTL, -1, -1 }, // linux/usbdevice_fs.h:168
+    { "USBDEVFS_HUB_PORTINFO", USBDEVFS_HUB_PORTINFO, -1, -1 }, // linux/usbdevice_fs.h:170
+    { "USBDEVFS_RESET", USBDEVFS_RESET, -1, -1 }, // linux/usbdevice_fs.h:171
+    { "USBDEVFS_CLEAR_HALT", USBDEVFS_CLEAR_HALT, -1, -1 }, // linux/usbdevice_fs.h:172
+    { "USBDEVFS_DISCONNECT", USBDEVFS_DISCONNECT, -1, -1 }, // linux/usbdevice_fs.h:173
+    { "USBDEVFS_CONNECT", USBDEVFS_CONNECT, -1, -1 }, // linux/usbdevice_fs.h:174
+    { "USBDEVFS_CLAIM_PORT", USBDEVFS_CLAIM_PORT, -1, -1 }, // linux/usbdevice_fs.h:175
+    { "USBDEVFS_RELEASE_PORT", USBDEVFS_RELEASE_PORT, -1, -1 }, // linux/usbdevice_fs.h:176
+    { "RFKILL_IOCTL_NOINPUT", RFKILL_IOCTL_NOINPUT, -1, -1 }, // linux/rfkill.h:105
+    { "CHIOMOVE", CHIOMOVE, -1, -1 }, // linux/chio.h:150
+    { "CHIOEXCHANGE", CHIOEXCHANGE, -1, -1 }, // linux/chio.h:151
+    { "CHIOPOSITION", CHIOPOSITION, -1, -1 }, // linux/chio.h:152
+    { "CHIOGPICKER", CHIOGPICKER, -1, -1 }, // linux/chio.h:153
+    { "CHIOSPICKER", CHIOSPICKER, -1, -1 }, // linux/chio.h:154
+    { "CHIOGPARAMS", CHIOGPARAMS, -1, -1 }, // linux/chio.h:155
+    { "CHIOGSTATUS", CHIOGSTATUS, -1, -1 }, // linux/chio.h:156
+    { "CHIOGELEM", CHIOGELEM, -1, -1 }, // linux/chio.h:157
+    { "CHIOINITELEM", CHIOINITELEM, -1, -1 }, // linux/chio.h:158
+    { "CHIOSVOLTAG", CHIOSVOLTAG, -1, -1 }, // linux/chio.h:159
+    { "CHIOGVPARAMS", CHIOGVPARAMS, -1, -1 }, // linux/chio.h:160
+    { "PPPIOCGCALLINFO", PPPIOCGCALLINFO, -1, -1 }, // linux/isdn_ppp.h:30
+    { "PPPIOCBUNDLE", PPPIOCBUNDLE, -1, -1 }, // linux/isdn_ppp.h:31
+    { "PPPIOCGMPFLAGS", PPPIOCGMPFLAGS, -1, -1 }, // linux/isdn_ppp.h:32
+    { "PPPIOCSMPFLAGS", PPPIOCSMPFLAGS, -1, -1 }, // linux/isdn_ppp.h:33
+    { "PPPIOCSMPMTU", PPPIOCSMPMTU, -1, -1 }, // linux/isdn_ppp.h:34
+    { "PPPIOCSMPMRU", PPPIOCSMPMRU, -1, -1 }, // linux/isdn_ppp.h:35
+    { "PPPIOCGCOMPRESSORS", PPPIOCGCOMPRESSORS, -1, -1 }, // linux/isdn_ppp.h:36
+    { "PPPIOCSCOMPRESSOR", PPPIOCSCOMPRESSOR, -1, -1 }, // linux/isdn_ppp.h:37
+    { "PPPIOCGIFNAME", PPPIOCGIFNAME, -1, -1 }, // linux/isdn_ppp.h:38
+    { "HIDIOCGRDESCSIZE", HIDIOCGRDESCSIZE, -1, -1 }, // linux/hidraw.h:33
+    { "HIDIOCGRDESC", HIDIOCGRDESC, -1, -1 }, // linux/hidraw.h:34
+    { "HIDIOCGRAWINFO", HIDIOCGRAWINFO, -1, -1 }, // linux/hidraw.h:35
+    { "EVIOCGVERSION", EVIOCGVERSION, -1, -1 }, // linux/input.h:98
+    { "EVIOCGID", EVIOCGID, -1, -1 }, // linux/input.h:99
+    { "EVIOCGREP", EVIOCGREP, -1, -1 }, // linux/input.h:100
+    { "EVIOCSREP", EVIOCSREP, -1, -1 }, // linux/input.h:101
+    { "EVIOCGKEYCODE", EVIOCGKEYCODE, -1, -1 }, // linux/input.h:103
+    { "EVIOCGKEYCODE_V2", EVIOCGKEYCODE_V2, -1, -1 }, // linux/input.h:104
+    { "EVIOCSKEYCODE", EVIOCSKEYCODE, -1, -1 }, // linux/input.h:105
+    { "EVIOCSKEYCODE_V2", EVIOCSKEYCODE_V2, -1, -1 }, // linux/input.h:106
+    { "EVIOCRMFF", EVIOCRMFF, -1, -1 }, // linux/input.h:149
+    { "EVIOCGEFFECTS", EVIOCGEFFECTS, -1, -1 }, // linux/input.h:150
+    { "EVIOCGRAB", EVIOCGRAB, -1, -1 }, // linux/input.h:152
+    { "EVIOCSCLOCKID", EVIOCSCLOCKID, -1, -1 }, // linux/input.h:155
+    { "SPI_IOC_RD_MODE", SPI_IOC_RD_MODE, -1, -1 }, // linux/spi/spidev.h:114
+    { "SPI_IOC_WR_MODE", SPI_IOC_WR_MODE, -1, -1 }, // linux/spi/spidev.h:115
+    { "SPI_IOC_RD_LSB_FIRST", SPI_IOC_RD_LSB_FIRST, -1, -1 }, // linux/spi/spidev.h:118
+    { "SPI_IOC_WR_LSB_FIRST", SPI_IOC_WR_LSB_FIRST, -1, -1 }, // linux/spi/spidev.h:119
+    { "SPI_IOC_RD_BITS_PER_WORD", SPI_IOC_RD_BITS_PER_WORD, -1, -1 }, // linux/spi/spidev.h:122
+    { "SPI_IOC_WR_BITS_PER_WORD", SPI_IOC_WR_BITS_PER_WORD, -1, -1 }, // linux/spi/spidev.h:123
+    { "SPI_IOC_RD_MAX_SPEED_HZ", SPI_IOC_RD_MAX_SPEED_HZ, -1, -1 }, // linux/spi/spidev.h:126
+    { "SPI_IOC_WR_MAX_SPEED_HZ", SPI_IOC_WR_MAX_SPEED_HZ, -1, -1 }, // linux/spi/spidev.h:127
+    { "MEYEIOC_SYNC", MEYEIOC_SYNC, -1, -1 }, // linux/meye.h:53
+    { "REISERFS_IOC_UNPACK", REISERFS_IOC_UNPACK, -1, -1 }, // linux/reiserfs_fs.h:18
+    { "I8K_GET_SPEED", I8K_GET_SPEED, -1, -1 }, // linux/i8k.h:28
+    { "I8K_GET_FAN", I8K_GET_FAN, -1, -1 }, // linux/i8k.h:29
+    { "I8K_SET_FAN", I8K_SET_FAN, -1, -1 }, // linux/i8k.h:30
+    { "PACKET_CTRL_CMD", PACKET_CTRL_CMD, -1, -1 }, // linux/pktcdvd.h:108
+    { "NS_GETPSTAT", NS_GETPSTAT, -1, -1 }, // linux/atm_nicstar.h:24
+    { "NS_SETBUFLEV", NS_SETBUFLEV, -1, -1 }, // linux/atm_nicstar.h:26
+    { "NS_ADJBUFLEV", NS_ADJBUFLEV, -1, -1 }, // linux/atm_nicstar.h:28
+    { "ATMSIGD_CTRL", ATMSIGD_CTRL, -1, -1 }, // linux/atmsvc.h:14
+    { "APM_IOC_STANDBY", APM_IOC_STANDBY, -1, -1 }, // linux/apm_bios.h:132
+    { "APM_IOC_SUSPEND", APM_IOC_SUSPEND, -1, -1 }, // linux/apm_bios.h:133
+    { "VIDIOC_SUBDEV_G_FMT", VIDIOC_SUBDEV_G_FMT, -1, -1 }, // linux/v4l2-subdev.h:159
+    { "VIDIOC_SUBDEV_S_FMT", VIDIOC_SUBDEV_S_FMT, -1, -1 }, // linux/v4l2-subdev.h:160
+    { "VIDIOC_SUBDEV_G_CROP", VIDIOC_SUBDEV_G_CROP, -1, -1 }, // linux/v4l2-subdev.h:171
+    { "VIDIOC_SUBDEV_S_CROP", VIDIOC_SUBDEV_S_CROP, -1, -1 }, // linux/v4l2-subdev.h:172
+    { "TOSH_SMM", TOSH_SMM, -1, -1 }, // linux/toshiba.h:25
+    { "PHN_GET_REG", PHN_GET_REG, -1, -1 }, // linux/phantom.h:29
+    { "PHN_SET_REG", PHN_SET_REG, -1, -1 }, // linux/phantom.h:30
+    { "PHN_GET_REGS", PHN_GET_REGS, -1, -1 }, // linux/phantom.h:31
+    { "PHN_SET_REGS", PHN_SET_REGS, -1, -1 }, // linux/phantom.h:32
+    { "PHN_NOT_OH", PHN_NOT_OH, -1, -1 }, // linux/phantom.h:36
+    { "PHN_GETREG", PHN_GETREG, -1, -1 }, // linux/phantom.h:37
+    { "PHN_SETREG", PHN_SETREG, -1, -1 }, // linux/phantom.h:38
+    { "PHN_GETREGS", PHN_GETREGS, -1, -1 }, // linux/phantom.h:39
+    { "PHN_SETREGS", PHN_SETREGS, -1, -1 }, // linux/phantom.h:40
+    { "GIGASET_REDIR", GIGASET_REDIR, -1, -1 }, // linux/gigaset_dev.h:23
+    { "GIGASET_CONFIG", GIGASET_CONFIG, -1, -1 }, // linux/gigaset_dev.h:26
+    { "GIGASET_BRKCHARS", GIGASET_BRKCHARS, -1, -1 }, // linux/gigaset_dev.h:29
+    { "GIGASET_VERSION", GIGASET_VERSION, -1, -1 }, // linux/gigaset_dev.h:32
+    { "BLKPG", BLKPG, -1, -1 }, // linux/blkpg.h:30
+    { "JSIOCGVERSION", JSIOCGVERSION, -1, -1 }, // linux/joystick.h:58
+    { "JSIOCGAXES", JSIOCGAXES, -1, -1 }, // linux/joystick.h:60
+    { "JSIOCGBUTTONS", JSIOCGBUTTONS, -1, -1 }, // linux/joystick.h:61
+    { "JSIOCSCORR", JSIOCSCORR, -1, -1 }, // linux/joystick.h:64
+    { "JSIOCGCORR", JSIOCGCORR, -1, -1 }, // linux/joystick.h:65
+    { "JSIOCSAXMAP", JSIOCSAXMAP, -1, -1 }, // linux/joystick.h:67
+    { "JSIOCGAXMAP", JSIOCGAXMAP, -1, -1 }, // linux/joystick.h:68
+    { "JSIOCSBTNMAP", JSIOCSBTNMAP, -1, -1 }, // linux/joystick.h:69
+    { "JSIOCGBTNMAP", JSIOCGBTNMAP, -1, -1 }, // linux/joystick.h:70
+    { "WDIOC_GETSUPPORT", WDIOC_GETSUPPORT, -1, -1 }, // linux/watchdog.h:23
+    { "WDIOC_GETSTATUS", WDIOC_GETSTATUS, -1, -1 }, // linux/watchdog.h:24
+    { "WDIOC_GETBOOTSTATUS", WDIOC_GETBOOTSTATUS, -1, -1 }, // linux/watchdog.h:25
+    { "WDIOC_GETTEMP", WDIOC_GETTEMP, -1, -1 }, // linux/watchdog.h:26
+    { "WDIOC_SETOPTIONS", WDIOC_SETOPTIONS, -1, -1 }, // linux/watchdog.h:27
+    { "WDIOC_KEEPALIVE", WDIOC_KEEPALIVE, -1, -1 }, // linux/watchdog.h:28
+    { "WDIOC_SETTIMEOUT", WDIOC_SETTIMEOUT, -1, -1 }, // linux/watchdog.h:29
+    { "WDIOC_GETTIMEOUT", WDIOC_GETTIMEOUT, -1, -1 }, // linux/watchdog.h:30
+    { "WDIOC_SETPRETIMEOUT", WDIOC_SETPRETIMEOUT, -1, -1 }, // linux/watchdog.h:31
+    { "WDIOC_GETPRETIMEOUT", WDIOC_GETPRETIMEOUT, -1, -1 }, // linux/watchdog.h:32
+    { "WDIOC_GETTIMELEFT", WDIOC_GETTIMELEFT, -1, -1 }, // linux/watchdog.h:33
+    { "NBD_SET_SOCK", NBD_SET_SOCK, -1, -1 }, // linux/nbd.h:20
+    { "NBD_SET_BLKSIZE", NBD_SET_BLKSIZE, -1, -1 }, // linux/nbd.h:21
+    { "NBD_SET_SIZE", NBD_SET_SIZE, -1, -1 }, // linux/nbd.h:22
+    { "NBD_DO_IT", NBD_DO_IT, -1, -1 }, // linux/nbd.h:23
+    { "NBD_CLEAR_SOCK", NBD_CLEAR_SOCK, -1, -1 }, // linux/nbd.h:24
+    { "NBD_CLEAR_QUE", NBD_CLEAR_QUE, -1, -1 }, // linux/nbd.h:25
+    { "NBD_PRINT_DEBUG", NBD_PRINT_DEBUG, -1, -1 }, // linux/nbd.h:26
+    { "NBD_SET_SIZE_BLOCKS", NBD_SET_SIZE_BLOCKS, -1, -1 }, // linux/nbd.h:27
+    { "NBD_DISCONNECT", NBD_DISCONNECT, -1, -1 }, // linux/nbd.h:28
+    { "NBD_SET_TIMEOUT", NBD_SET_TIMEOUT, -1, -1 }, // linux/nbd.h:29
+    { "RNDGETENTCNT", RNDGETENTCNT, -1, -1 }, // linux/random.h:17
+    { "RNDADDTOENTCNT", RNDADDTOENTCNT, -1, -1 }, // linux/random.h:20
+    { "RNDGETPOOL", RNDGETPOOL, -1, -1 }, // linux/random.h:23
+    { "RNDADDENTROPY", RNDADDENTROPY, -1, -1 }, // linux/random.h:29
+    { "RNDZAPENTCNT", RNDZAPENTCNT, -1, -1 }, // linux/random.h:32
+    { "RNDCLEARPOOL", RNDCLEARPOOL, -1, -1 }, // linux/random.h:35
+    { "IVTVFB_IOC_DMA_FRAME", IVTVFB_IOC_DMA_FRAME, -1, -1 }, // linux/ivtvfb.h:35
+    { "AGPIOC_ALLOCATE", AGPIOC_ALLOCATE, -1, -1 }, // linux/agpgart.h:37
+    { "RTC_AIE_ON", RTC_AIE_ON, -1, -1 }, // linux/rtc.h:70
+    { "RTC_AIE_OFF", RTC_AIE_OFF, -1, -1 }, // linux/rtc.h:71
+    { "RTC_UIE_ON", RTC_UIE_ON, -1, -1 }, // linux/rtc.h:72
+    { "RTC_UIE_OFF", RTC_UIE_OFF, -1, -1 }, // linux/rtc.h:73
+    { "RTC_PIE_ON", RTC_PIE_ON, -1, -1 }, // linux/rtc.h:74
+    { "RTC_PIE_OFF", RTC_PIE_OFF, -1, -1 }, // linux/rtc.h:75
+    { "RTC_WIE_ON", RTC_WIE_ON, -1, -1 }, // linux/rtc.h:76
+    { "RTC_WIE_OFF", RTC_WIE_OFF, -1, -1 }, // linux/rtc.h:77
+    { "RTC_ALM_SET", RTC_ALM_SET, -1, -1 }, // linux/rtc.h:79
+    { "RTC_ALM_READ", RTC_ALM_READ, -1, -1 }, // linux/rtc.h:80
+    { "RTC_RD_TIME", RTC_RD_TIME, -1, -1 }, // linux/rtc.h:81
+    { "RTC_SET_TIME", RTC_SET_TIME, -1, -1 }, // linux/rtc.h:82
+    { "RTC_IRQP_READ", RTC_IRQP_READ, -1, -1 }, // linux/rtc.h:83
+    { "RTC_IRQP_SET", RTC_IRQP_SET, -1, -1 }, // linux/rtc.h:84
+    { "RTC_EPOCH_READ", RTC_EPOCH_READ, -1, -1 }, // linux/rtc.h:85
+    { "RTC_EPOCH_SET", RTC_EPOCH_SET, -1, -1 }, // linux/rtc.h:86
+    { "RTC_WKALM_SET", RTC_WKALM_SET, -1, -1 }, // linux/rtc.h:88
+    { "RTC_WKALM_RD", RTC_WKALM_RD, -1, -1 }, // linux/rtc.h:89
+    { "RTC_PLL_GET", RTC_PLL_GET, -1, -1 }, // linux/rtc.h:91
+    { "RTC_PLL_SET", RTC_PLL_SET, -1, -1 }, // linux/rtc.h:92
+    { "RTC_VL_READ", RTC_VL_READ, -1, -1 }, // linux/rtc.h:94
+    { "RTC_VL_CLR", RTC_VL_CLR, -1, -1 }, // linux/rtc.h:95
+    { "FBIO_CURSOR", FBIO_CURSOR, -1, -1 }, // linux/fb.h:19
+    { "FBIOGET_VBLANK", FBIOGET_VBLANK, -1, -1 }, // linux/fb.h:27
+    { "FBIO_WAITFORVSYNC", FBIO_WAITFORVSYNC, -1, -1 }, // linux/fb.h:34
+    { "ATMMPC_CTRL", ATMMPC_CTRL, -1, -1 }, // linux/atmmpc.h:9
+    { "ATMMPC_DATA", ATMMPC_DATA, -1, -1 }, // linux/atmmpc.h:10
+    { "BLKROSET", BLKROSET, -1, -1 }, // linux/fs.h:110
+    { "BLKROGET", BLKROGET, -1, -1 }, // linux/fs.h:111
+    { "BLKRRPART", BLKRRPART, -1, -1 }, // linux/fs.h:112
+    { "BLKGETSIZE", BLKGETSIZE, -1, -1 }, // linux/fs.h:113
+    { "BLKFLSBUF", BLKFLSBUF, -1, -1 }, // linux/fs.h:114
+    { "BLKRASET", BLKRASET, -1, -1 }, // linux/fs.h:115
+    { "BLKRAGET", BLKRAGET, -1, -1 }, // linux/fs.h:116
+    { "BLKFRASET", BLKFRASET, -1, -1 }, // linux/fs.h:117
+    { "BLKFRAGET", BLKFRAGET, -1, -1 }, // linux/fs.h:118
+    { "BLKSECTSET", BLKSECTSET, -1, -1 }, // linux/fs.h:119
+    { "BLKSECTGET", BLKSECTGET, -1, -1 }, // linux/fs.h:120
+    { "BLKSSZGET", BLKSSZGET, -1, -1 }, // linux/fs.h:121
+    { "BLKPG", BLKPG, -1, -1 }, // linux/fs.h:123
+    { "BLKBSZGET", BLKBSZGET, -1, -1 }, // linux/fs.h:133
+    { "BLKBSZSET", BLKBSZSET, -1, -1 }, // linux/fs.h:134
+    { "BLKGETSIZE64", BLKGETSIZE64, -1, -1 }, // linux/fs.h:135
+    { "BLKTRACESTART", BLKTRACESTART, -1, -1 }, // linux/fs.h:137
+    { "BLKTRACESTOP", BLKTRACESTOP, -1, -1 }, // linux/fs.h:138
+    { "BLKTRACETEARDOWN", BLKTRACETEARDOWN, -1, -1 }, // linux/fs.h:139
+    { "BLKDISCARD", BLKDISCARD, -1, -1 }, // linux/fs.h:140
+    { "BLKIOMIN", BLKIOMIN, -1, -1 }, // linux/fs.h:141
+    { "BLKIOOPT", BLKIOOPT, -1, -1 }, // linux/fs.h:142
+    { "BLKALIGNOFF", BLKALIGNOFF, -1, -1 }, // linux/fs.h:143
+    { "BLKPBSZGET", BLKPBSZGET, -1, -1 }, // linux/fs.h:144
+    { "BLKDISCARDZEROES", BLKDISCARDZEROES, -1, -1 }, // linux/fs.h:145
+    { "BLKSECDISCARD", BLKSECDISCARD, -1, -1 }, // linux/fs.h:146
+    { "BLKROTATIONAL", BLKROTATIONAL, -1, -1 }, // linux/fs.h:147
+    { "FIBMAP", FIBMAP, -1, -1 }, // linux/fs.h:151
+    { "FIGETBSZ", FIGETBSZ, -1, -1 }, // linux/fs.h:152
+    { "FIFREEZE", FIFREEZE, -1, -1 }, // linux/fs.h:153
+    { "FITHAW", FITHAW, -1, -1 }, // linux/fs.h:154
+    { "FITRIM", FITRIM, -1, -1 }, // linux/fs.h:155
+    { "FS_IOC_GETFLAGS", FS_IOC_GETFLAGS, -1, -1 }, // linux/fs.h:157
+    { "FS_IOC_SETFLAGS", FS_IOC_SETFLAGS, -1, -1 }, // linux/fs.h:158
+    { "FS_IOC_GETVERSION", FS_IOC_GETVERSION, -1, -1 }, // linux/fs.h:159
+    { "FS_IOC_SETVERSION", FS_IOC_SETVERSION, -1, -1 }, // linux/fs.h:160
+    { "FS_IOC32_GETFLAGS", FS_IOC32_GETFLAGS, -1, -1 }, // linux/fs.h:162
+    { "FS_IOC32_SETFLAGS", FS_IOC32_SETFLAGS, -1, -1 }, // linux/fs.h:163
+    { "FS_IOC32_GETVERSION", FS_IOC32_GETVERSION, -1, -1 }, // linux/fs.h:164
+    { "FS_IOC32_SETVERSION", FS_IOC32_SETVERSION, -1, -1 }, // linux/fs.h:165
+    { "ATMARPD_CTRL", ATMARPD_CTRL, -1, -1 }, // linux/atmarp.h:21
+    { "ATMARP_MKIP", ATMARP_MKIP, -1, -1 }, // linux/atmarp.h:22
+    { "ATMARP_SETENTRY", ATMARP_SETENTRY, -1, -1 }, // linux/atmarp.h:23
+    { "ATMARP_ENCAP", ATMARP_ENCAP, -1, -1 }, // linux/atmarp.h:24
+    { "AUTOFS_IOC_EXPIRE_MULTI", AUTOFS_IOC_EXPIRE_MULTI, -1, -1 }, // linux/auto_fs4.h:157
+    { "AUTOFS_IOC_PROTOSUBVER", AUTOFS_IOC_PROTOSUBVER, -1, -1 }, // linux/auto_fs4.h:160
+    { "AUTOFS_IOC_ASKUMOUNT", AUTOFS_IOC_ASKUMOUNT, -1, -1 }, // linux/auto_fs4.h:161
+    { "FW_CDEV_IOC_GET_INFO", FW_CDEV_IOC_GET_INFO, -1, -1 }, // linux/firewire-cdev.h:393
+    { "FW_CDEV_IOC_SEND_REQUEST", FW_CDEV_IOC_SEND_REQUEST, -1, -1 }, // linux/firewire-cdev.h:394
+    { "FW_CDEV_IOC_ALLOCATE", FW_CDEV_IOC_ALLOCATE, -1, -1 }, // linux/firewire-cdev.h:395
+    { "FW_CDEV_IOC_DEALLOCATE", FW_CDEV_IOC_DEALLOCATE, -1, -1 }, // linux/firewire-cdev.h:396
+    { "FW_CDEV_IOC_SEND_RESPONSE", FW_CDEV_IOC_SEND_RESPONSE, -1, -1 }, // linux/firewire-cdev.h:397
+    { "FW_CDEV_IOC_INITIATE_BUS_RESET", FW_CDEV_IOC_INITIATE_BUS_RESET, -1, -1 }, // linux/firewire-cdev.h:398
+    { "FW_CDEV_IOC_ADD_DESCRIPTOR", FW_CDEV_IOC_ADD_DESCRIPTOR, -1, -1 }, // linux/firewire-cdev.h:399
+    { "FW_CDEV_IOC_REMOVE_DESCRIPTOR", FW_CDEV_IOC_REMOVE_DESCRIPTOR, -1, -1 }, // linux/firewire-cdev.h:400
+    { "FW_CDEV_IOC_CREATE_ISO_CONTEXT", FW_CDEV_IOC_CREATE_ISO_CONTEXT, -1, -1 }, // linux/firewire-cdev.h:401
+    { "FW_CDEV_IOC_QUEUE_ISO", FW_CDEV_IOC_QUEUE_ISO, -1, -1 }, // linux/firewire-cdev.h:402
+    { "FW_CDEV_IOC_START_ISO", FW_CDEV_IOC_START_ISO, -1, -1 }, // linux/firewire-cdev.h:403
+    { "FW_CDEV_IOC_STOP_ISO", FW_CDEV_IOC_STOP_ISO, -1, -1 }, // linux/firewire-cdev.h:404
+    { "FW_CDEV_IOC_GET_CYCLE_TIMER", FW_CDEV_IOC_GET_CYCLE_TIMER, -1, -1 }, // linux/firewire-cdev.h:407
+    { "FW_CDEV_IOC_ALLOCATE_ISO_RESOURCE", FW_CDEV_IOC_ALLOCATE_ISO_RESOURCE, -1, -1 }, // linux/firewire-cdev.h:410
+    { "FW_CDEV_IOC_DEALLOCATE_ISO_RESOURCE", FW_CDEV_IOC_DEALLOCATE_ISO_RESOURCE, -1, -1 }, // linux/firewire-cdev.h:411
+    { "FW_CDEV_IOC_ALLOCATE_ISO_RESOURCE_ONCE", FW_CDEV_IOC_ALLOCATE_ISO_RESOURCE_ONCE, -1, -1 }, // linux/firewire-cdev.h:412
+    { "FW_CDEV_IOC_DEALLOCATE_ISO_RESOURCE_ONCE", FW_CDEV_IOC_DEALLOCATE_ISO_RESOURCE_ONCE, -1, -1 }, // linux/firewire-cdev.h:413
+    { "FW_CDEV_IOC_GET_SPEED", FW_CDEV_IOC_GET_SPEED, -1, -1 }, // linux/firewire-cdev.h:414
+    { "FW_CDEV_IOC_SEND_BROADCAST_REQUEST", FW_CDEV_IOC_SEND_BROADCAST_REQUEST, -1, -1 }, // linux/firewire-cdev.h:415
+    { "FW_CDEV_IOC_SEND_STREAM_PACKET", FW_CDEV_IOC_SEND_STREAM_PACKET, -1, -1 }, // linux/firewire-cdev.h:416
+    { "FW_CDEV_IOC_GET_CYCLE_TIMER2", FW_CDEV_IOC_GET_CYCLE_TIMER2, -1, -1 }, // linux/firewire-cdev.h:419
+    { "FW_CDEV_IOC_SEND_PHY_PACKET", FW_CDEV_IOC_SEND_PHY_PACKET, -1, -1 }, // linux/firewire-cdev.h:422
+    { "FW_CDEV_IOC_RECEIVE_PHY_PACKETS", FW_CDEV_IOC_RECEIVE_PHY_PACKETS, -1, -1 }, // linux/firewire-cdev.h:423
+    { "FW_CDEV_IOC_SET_ISO_CHANNELS", FW_CDEV_IOC_SET_ISO_CHANNELS, -1, -1 }, // linux/firewire-cdev.h:424
+    { "FW_CDEV_IOC_FLUSH_ISO", FW_CDEV_IOC_FLUSH_ISO, -1, -1 }, // linux/firewire-cdev.h:427
+    { "FDCLRPRM", FDCLRPRM, -1, -1 }, // linux/fd.h:48
+    { "FDSETPRM", FDSETPRM, -1, -1 }, // linux/fd.h:51
+    { "FDDEFPRM", FDDEFPRM, -1, -1 }, // linux/fd.h:55
+    { "FDGETPRM", FDGETPRM, -1, -1 }, // linux/fd.h:56
+    { "FDMSGON", FDMSGON, -1, -1 }, // linux/fd.h:62
+    { "FDMSGOFF", FDMSGOFF, -1, -1 }, // linux/fd.h:63
+    { "FDFMTBEG", FDFMTBEG, -1, -1 }, // linux/fd.h:76
+    { "FDFMTTRK", FDFMTTRK, -1, -1 }, // linux/fd.h:78
+    { "FDFMTEND", FDFMTEND, -1, -1 }, // linux/fd.h:80
+    { "FDSETEMSGTRESH", FDSETEMSGTRESH, -1, -1 }, // linux/fd.h:105
+    { "FDFLUSH", FDFLUSH, -1, -1 }, // linux/fd.h:108
+    { "FDSETMAXERRS", FDSETMAXERRS, -1, -1 }, // linux/fd.h:112
+    { "FDGETMAXERRS", FDGETMAXERRS, -1, -1 }, // linux/fd.h:113
+    { "FDGETDRVTYP", FDGETDRVTYP, -1, -1 }, // linux/fd.h:119
+    { "FDSETDRVPRM", FDSETDRVPRM, -1, -1 }, // linux/fd.h:191
+    { "FDGETDRVPRM", FDGETDRVPRM, -1, -1 }, // linux/fd.h:192
+    { "FDGETDRVSTAT", FDGETDRVSTAT, -1, -1 }, // linux/fd.h:234
+    { "FDPOLLDRVSTAT", FDPOLLDRVSTAT, -1, -1 }, // linux/fd.h:235
+    { "FDRESET", FDRESET, -1, -1 }, // linux/fd.h:247
+    { "FDGETFDCSTAT", FDGETFDCSTAT, -1, -1 }, // linux/fd.h:285
+    { "FDWERRORCLR", FDWERRORCLR, -1, -1 }, // linux/fd.h:313
+    { "FDWERRORGET", FDWERRORGET, -1, -1 }, // linux/fd.h:315
+    { "FDRAWCMD", FDRAWCMD, -1, -1 }, // linux/fd.h:369
+    { "FDTWADDLE", FDTWADDLE, -1, -1 }, // linux/fd.h:373
+    { "FDEJECT", FDEJECT, -1, -1 }, // linux/fd.h:377
+    { "SIOCSIFATMTCP", SIOCSIFATMTCP, -1, -1 }, // linux/atm_tcp.h:53
+    { "ATMTCP_CREATE", ATMTCP_CREATE, -1, -1 }, // linux/atm_tcp.h:54
+    { "ATMTCP_REMOVE", ATMTCP_REMOVE, -1, -1 }, // linux/atm_tcp.h:56
+    { "ENI_MEMDUMP", ENI_MEMDUMP, -1, -1 }, // linux/atm_eni.h:18
+    { "ENI_SETMULT", ENI_SETMULT, -1, -1 }, // linux/atm_eni.h:20
+    { "UVCIOC_CTRL_MAP", UVCIOC_CTRL_MAP, -1, -1 }, // linux/uvcvideo.h:67
+    { "UVCIOC_CTRL_QUERY", UVCIOC_CTRL_QUERY, -1, -1 }, // linux/uvcvideo.h:68
+    { "HPET_IE_ON", HPET_IE_ON, -1, -1 }, // linux/hpet.h:16
+    { "HPET_IE_OFF", HPET_IE_OFF, -1, -1 }, // linux/hpet.h:17
+    { "HPET_INFO", HPET_INFO, -1, -1 }, // linux/hpet.h:18
+    { "HPET_EPI", HPET_EPI, -1, -1 }, // linux/hpet.h:19
+    { "HPET_DPI", HPET_DPI, -1, -1 }, // linux/hpet.h:20
+    { "HPET_IRQFREQ", HPET_IRQFREQ, -1, -1 }, // linux/hpet.h:21
+    { "SONYPI_IOCGBRT", SONYPI_IOCGBRT, -1, -1 }, // linux/sonypi.h:119
+    { "SONYPI_IOCSBRT", SONYPI_IOCSBRT, -1, -1 }, // linux/sonypi.h:120
+    { "SONYPI_IOCGBAT1CAP", SONYPI_IOCGBAT1CAP, -1, -1 }, // linux/sonypi.h:123
+    { "SONYPI_IOCGBAT1REM", SONYPI_IOCGBAT1REM, -1, -1 }, // linux/sonypi.h:124
+    { "SONYPI_IOCGBAT2CAP", SONYPI_IOCGBAT2CAP, -1, -1 }, // linux/sonypi.h:125
+    { "SONYPI_IOCGBAT2REM", SONYPI_IOCGBAT2REM, -1, -1 }, // linux/sonypi.h:126
+    { "SONYPI_IOCGBATFLAGS", SONYPI_IOCGBATFLAGS, -1, -1 }, // linux/sonypi.h:132
+    { "SONYPI_IOCGBLUE", SONYPI_IOCGBLUE, -1, -1 }, // linux/sonypi.h:135
+    { "SONYPI_IOCSBLUE", SONYPI_IOCSBLUE, -1, -1 }, // linux/sonypi.h:136
+    { "SONYPI_IOCGFAN", SONYPI_IOCGFAN, -1, -1 }, // linux/sonypi.h:139
+    { "SONYPI_IOCSFAN", SONYPI_IOCSFAN, -1, -1 }, // linux/sonypi.h:140
+    { "SONYPI_IOCGTEMP", SONYPI_IOCGTEMP, -1, -1 }, // linux/sonypi.h:143
+    { "UDF_GETEASIZE", UDF_GETEASIZE, -1, -1 }, // linux/udf_fs_i.h:16
+    { "UDF_GETEABLOCK", UDF_GETEABLOCK, -1, -1 }, // linux/udf_fs_i.h:17
+    { "UDF_GETVOLIDENT", UDF_GETVOLIDENT, -1, -1 }, // linux/udf_fs_i.h:18
+    { "UDF_RELOCATE_BLOCKS", UDF_RELOCATE_BLOCKS, -1, -1 }, // linux/udf_fs_i.h:19
+    { "IDT77105_GETSTAT", IDT77105_GETSTAT, -1, -1 }, // linux/atm_idt77105.h:25
+    { "IDT77105_GETSTATZ", IDT77105_GETSTATZ, -1, -1 }, // linux/atm_idt77105.h:26
+    { "SIOCSNETADDR", SIOCSNETADDR, -1, -1 }, // linux/dn.h:142
+    { "SIOCGNETADDR", SIOCGNETADDR, -1, -1 }, // linux/dn.h:143
+    { "OSIOCSNETADDR", OSIOCSNETADDR, -1, -1 }, // linux/dn.h:144
+    { "OSIOCGNETADDR", OSIOCGNETADDR, -1, -1 }, // linux/dn.h:145
+    { "UI_DEV_CREATE", UI_DEV_CREATE, -1, -1 }, // linux/uinput.h:56
+    { "UI_DEV_DESTROY", UI_DEV_DESTROY, -1, -1 }, // linux/uinput.h:57
+    { "UI_SET_EVBIT", UI_SET_EVBIT, -1, -1 }, // linux/uinput.h:59
+    { "UI_SET_KEYBIT", UI_SET_KEYBIT, -1, -1 }, // linux/uinput.h:60
+    { "UI_SET_RELBIT", UI_SET_RELBIT, -1, -1 }, // linux/uinput.h:61
+    { "UI_SET_ABSBIT", UI_SET_ABSBIT, -1, -1 }, // linux/uinput.h:62
+    { "UI_SET_MSCBIT", UI_SET_MSCBIT, -1, -1 }, // linux/uinput.h:63
+    { "UI_SET_LEDBIT", UI_SET_LEDBIT, -1, -1 }, // linux/uinput.h:64
+    { "UI_SET_SNDBIT", UI_SET_SNDBIT, -1, -1 }, // linux/uinput.h:65
+    { "UI_SET_FFBIT", UI_SET_FFBIT, -1, -1 }, // linux/uinput.h:66
+    { "UI_SET_PHYS", UI_SET_PHYS, -1, -1 }, // linux/uinput.h:67
+    { "UI_SET_SWBIT", UI_SET_SWBIT, -1, -1 }, // linux/uinput.h:68
+    { "UI_SET_PROPBIT", UI_SET_PROPBIT, -1, -1 }, // linux/uinput.h:69
+    { "UI_BEGIN_FF_UPLOAD", UI_BEGIN_FF_UPLOAD, -1, -1 }, // linux/uinput.h:71
+    { "UI_END_FF_UPLOAD", UI_END_FF_UPLOAD, -1, -1 }, // linux/uinput.h:72
+    { "UI_BEGIN_FF_ERASE", UI_BEGIN_FF_ERASE, -1, -1 }, // linux/uinput.h:73
+    { "UI_END_FF_ERASE", UI_END_FF_ERASE, -1, -1 }, // linux/uinput.h:74
+    { "PMU_IOC_SLEEP", PMU_IOC_SLEEP, -1, -1 }, // linux/pmu.h:124
+    { "PMU_IOC_GET_BACKLIGHT", PMU_IOC_GET_BACKLIGHT, -1, -1 }, // linux/pmu.h:126
+    { "PMU_IOC_SET_BACKLIGHT", PMU_IOC_SET_BACKLIGHT, -1, -1 }, // linux/pmu.h:128
+    { "PMU_IOC_GET_MODEL", PMU_IOC_GET_MODEL, -1, -1 }, // linux/pmu.h:130
+    { "PMU_IOC_HAS_ADB", PMU_IOC_HAS_ADB, -1, -1 }, // linux/pmu.h:132
+    { "PMU_IOC_CAN_SLEEP", PMU_IOC_CAN_SLEEP, -1, -1 }, // linux/pmu.h:134
+    { "PMU_IOC_GRAB_BACKLIGHT", PMU_IOC_GRAB_BACKLIGHT, -1, -1 }, // linux/pmu.h:136
+    { "VIDIOC_QUERYCAP", VIDIOC_QUERYCAP, -1, -1 }, // linux/videodev2.h:1855
+    { "VIDIOC_RESERVED", VIDIOC_RESERVED, -1, -1 }, // linux/videodev2.h:1856
+    { "VIDIOC_ENUM_FMT", VIDIOC_ENUM_FMT, -1, -1 }, // linux/videodev2.h:1857
+    { "VIDIOC_G_FMT", VIDIOC_G_FMT, -1, -1 }, // linux/videodev2.h:1858
+    { "VIDIOC_S_FMT", VIDIOC_S_FMT, -1, -1 }, // linux/videodev2.h:1859
+    { "VIDIOC_REQBUFS", VIDIOC_REQBUFS, -1, -1 }, // linux/videodev2.h:1860
+    { "VIDIOC_QUERYBUF", VIDIOC_QUERYBUF, -1, -1 }, // linux/videodev2.h:1861
+    { "VIDIOC_G_FBUF", VIDIOC_G_FBUF, -1, -1 }, // linux/videodev2.h:1862
+    { "VIDIOC_S_FBUF", VIDIOC_S_FBUF, -1, -1 }, // linux/videodev2.h:1863
+    { "VIDIOC_OVERLAY", VIDIOC_OVERLAY, -1, -1 }, // linux/videodev2.h:1864
+    { "VIDIOC_QBUF", VIDIOC_QBUF, -1, -1 }, // linux/videodev2.h:1865
+    { "VIDIOC_DQBUF", VIDIOC_DQBUF, -1, -1 }, // linux/videodev2.h:1867
+    { "VIDIOC_STREAMON", VIDIOC_STREAMON, -1, -1 }, // linux/videodev2.h:1868
+    { "VIDIOC_STREAMOFF", VIDIOC_STREAMOFF, -1, -1 }, // linux/videodev2.h:1869
+    { "VIDIOC_G_PARM", VIDIOC_G_PARM, -1, -1 }, // linux/videodev2.h:1870
+    { "VIDIOC_S_PARM", VIDIOC_S_PARM, -1, -1 }, // linux/videodev2.h:1871
+    { "VIDIOC_G_STD", VIDIOC_G_STD, -1, -1 }, // linux/videodev2.h:1872
+    { "VIDIOC_S_STD", VIDIOC_S_STD, -1, -1 }, // linux/videodev2.h:1873
+    { "VIDIOC_ENUMSTD", VIDIOC_ENUMSTD, -1, -1 }, // linux/videodev2.h:1874
+    { "VIDIOC_ENUMINPUT", VIDIOC_ENUMINPUT, -1, -1 }, // linux/videodev2.h:1875
+    { "VIDIOC_G_CTRL", VIDIOC_G_CTRL, -1, -1 }, // linux/videodev2.h:1876
+    { "VIDIOC_S_CTRL", VIDIOC_S_CTRL, -1, -1 }, // linux/videodev2.h:1877
+    { "VIDIOC_G_TUNER", VIDIOC_G_TUNER, -1, -1 }, // linux/videodev2.h:1878
+    { "VIDIOC_S_TUNER", VIDIOC_S_TUNER, -1, -1 }, // linux/videodev2.h:1879
+    { "VIDIOC_G_AUDIO", VIDIOC_G_AUDIO, -1, -1 }, // linux/videodev2.h:1880
+    { "VIDIOC_S_AUDIO", VIDIOC_S_AUDIO, -1, -1 }, // linux/videodev2.h:1881
+    { "VIDIOC_QUERYCTRL", VIDIOC_QUERYCTRL, -1, -1 }, // linux/videodev2.h:1882
+    { "VIDIOC_QUERYMENU", VIDIOC_QUERYMENU, -1, -1 }, // linux/videodev2.h:1883
+    { "VIDIOC_G_INPUT", VIDIOC_G_INPUT, -1, -1 }, // linux/videodev2.h:1884
+    { "VIDIOC_S_INPUT", VIDIOC_S_INPUT, -1, -1 }, // linux/videodev2.h:1885
+    { "VIDIOC_G_OUTPUT", VIDIOC_G_OUTPUT, -1, -1 }, // linux/videodev2.h:1886
+    { "VIDIOC_S_OUTPUT", VIDIOC_S_OUTPUT, -1, -1 }, // linux/videodev2.h:1887
+    { "VIDIOC_ENUMOUTPUT", VIDIOC_ENUMOUTPUT, -1, -1 }, // linux/videodev2.h:1888
+    { "VIDIOC_G_AUDOUT", VIDIOC_G_AUDOUT, -1, -1 }, // linux/videodev2.h:1889
+    { "VIDIOC_S_AUDOUT", VIDIOC_S_AUDOUT, -1, -1 }, // linux/videodev2.h:1890
+    { "VIDIOC_G_MODULATOR", VIDIOC_G_MODULATOR, -1, -1 }, // linux/videodev2.h:1891
+    { "VIDIOC_S_MODULATOR", VIDIOC_S_MODULATOR, -1, -1 }, // linux/videodev2.h:1892
+    { "VIDIOC_G_FREQUENCY", VIDIOC_G_FREQUENCY, -1, -1 }, // linux/videodev2.h:1893
+    { "VIDIOC_S_FREQUENCY", VIDIOC_S_FREQUENCY, -1, -1 }, // linux/videodev2.h:1894
+    { "VIDIOC_CROPCAP", VIDIOC_CROPCAP, -1, -1 }, // linux/videodev2.h:1895
+    { "VIDIOC_G_CROP", VIDIOC_G_CROP, -1, -1 }, // linux/videodev2.h:1896
+    { "VIDIOC_S_CROP", VIDIOC_S_CROP, -1, -1 }, // linux/videodev2.h:1897
+    { "VIDIOC_G_JPEGCOMP", VIDIOC_G_JPEGCOMP, -1, -1 }, // linux/videodev2.h:1898
+    { "VIDIOC_S_JPEGCOMP", VIDIOC_S_JPEGCOMP, -1, -1 }, // linux/videodev2.h:1899
+    { "VIDIOC_QUERYSTD", VIDIOC_QUERYSTD, -1, -1 }, // linux/videodev2.h:1900
+    { "VIDIOC_TRY_FMT", VIDIOC_TRY_FMT, -1, -1 }, // linux/videodev2.h:1901
+    { "VIDIOC_ENUMAUDIO", VIDIOC_ENUMAUDIO, -1, -1 }, // linux/videodev2.h:1902
+    { "VIDIOC_ENUMAUDOUT", VIDIOC_ENUMAUDOUT, -1, -1 }, // linux/videodev2.h:1903
+    { "VIDIOC_G_PRIORITY", VIDIOC_G_PRIORITY, -1, -1 }, // linux/videodev2.h:1904
+    { "VIDIOC_S_PRIORITY", VIDIOC_S_PRIORITY, -1, -1 }, // linux/videodev2.h:1905
+    { "VIDIOC_G_SLICED_VBI_CAP", VIDIOC_G_SLICED_VBI_CAP, -1, -1 }, // linux/videodev2.h:1906
+    { "VIDIOC_LOG_STATUS", VIDIOC_LOG_STATUS, -1, -1 }, // linux/videodev2.h:1907
+    { "VIDIOC_G_EXT_CTRLS", VIDIOC_G_EXT_CTRLS, -1, -1 }, // linux/videodev2.h:1908
+    { "VIDIOC_S_EXT_CTRLS", VIDIOC_S_EXT_CTRLS, -1, -1 }, // linux/videodev2.h:1909
+    { "VIDIOC_TRY_EXT_CTRLS", VIDIOC_TRY_EXT_CTRLS, -1, -1 }, // linux/videodev2.h:1910
+    { "VIDIOC_ENUM_FRAMESIZES", VIDIOC_ENUM_FRAMESIZES, -1, -1 }, // linux/videodev2.h:1911
+    { "VIDIOC_ENUM_FRAMEINTERVALS", VIDIOC_ENUM_FRAMEINTERVALS, -1, -1 }, // linux/videodev2.h:1912
+    { "VIDIOC_G_ENC_INDEX", VIDIOC_G_ENC_INDEX, -1, -1 }, // linux/videodev2.h:1913
+    { "VIDIOC_ENCODER_CMD", VIDIOC_ENCODER_CMD, -1, -1 }, // linux/videodev2.h:1914
+    { "VIDIOC_TRY_ENCODER_CMD", VIDIOC_TRY_ENCODER_CMD, -1, -1 }, // linux/videodev2.h:1915
+    { "VIDIOC_DBG_S_REGISTER", VIDIOC_DBG_S_REGISTER, -1, -1 }, // linux/videodev2.h:1920
+    { "VIDIOC_DBG_G_REGISTER", VIDIOC_DBG_G_REGISTER, -1, -1 }, // linux/videodev2.h:1921
+    { "VIDIOC_S_HW_FREQ_SEEK", VIDIOC_S_HW_FREQ_SEEK, -1, -1 }, // linux/videodev2.h:1923
+    { "VIDIOC_S_DV_TIMINGS", VIDIOC_S_DV_TIMINGS, -1, -1 }, // linux/videodev2.h:1925
+    { "VIDIOC_G_DV_TIMINGS", VIDIOC_G_DV_TIMINGS, -1, -1 }, // linux/videodev2.h:1926
+    { "VIDIOC_DQEVENT", VIDIOC_DQEVENT, -1, -1 }, // linux/videodev2.h:1927
+    { "VIDIOC_SUBSCRIBE_EVENT", VIDIOC_SUBSCRIBE_EVENT, -1, -1 }, // linux/videodev2.h:1928
+    { "VIDIOC_UNSUBSCRIBE_EVENT", VIDIOC_UNSUBSCRIBE_EVENT, -1, -1 }, // linux/videodev2.h:1929
+    { "VIDIOC_CREATE_BUFS", VIDIOC_CREATE_BUFS, -1, -1 }, // linux/videodev2.h:1933
+    { "VIDIOC_PREPARE_BUF", VIDIOC_PREPARE_BUF, -1, -1 }, // linux/videodev2.h:1934
+    { "VIDIOC_G_SELECTION", VIDIOC_G_SELECTION, -1, -1 }, // linux/videodev2.h:1937
+    { "VIDIOC_S_SELECTION", VIDIOC_S_SELECTION, -1, -1 }, // linux/videodev2.h:1938
+    { "VIDIOC_DECODER_CMD", VIDIOC_DECODER_CMD, -1, -1 }, // linux/videodev2.h:1942
+    { "VIDIOC_TRY_DECODER_CMD", VIDIOC_TRY_DECODER_CMD, -1, -1 }, // linux/videodev2.h:1943
+    { "VIDIOC_ENUM_DV_TIMINGS", VIDIOC_ENUM_DV_TIMINGS, -1, -1 }, // linux/videodev2.h:1947
+    { "VIDIOC_QUERY_DV_TIMINGS", VIDIOC_QUERY_DV_TIMINGS, -1, -1 }, // linux/videodev2.h:1948
+    { "VIDIOC_DV_TIMINGS_CAP", VIDIOC_DV_TIMINGS_CAP, -1, -1 }, // linux/videodev2.h:1949
+    { "PERF_EVENT_IOC_PERIOD", PERF_EVENT_IOC_PERIOD, -1, -1 }, // linux/perf_event.h:347
+    { "PERF_EVENT_IOC_SET_FILTER", PERF_EVENT_IOC_SET_FILTER, -1, -1 }, // linux/perf_event.h:349
+    { "MMTIMER_GETOFFSET", MMTIMER_GETOFFSET, -1, -1 }, // linux/mmtimer.h:49
+    { "MMTIMER_GETRES", MMTIMER_GETRES, -1, -1 }, // linux/mmtimer.h:50
+    { "MMTIMER_GETFREQ", MMTIMER_GETFREQ, -1, -1 }, // linux/mmtimer.h:51
+    { "MMTIMER_GETBITS", MMTIMER_GETBITS, -1, -1 }, // linux/mmtimer.h:52
+    { "MMTIMER_MMAPAVAIL", MMTIMER_MMAPAVAIL, -1, -1 }, // linux/mmtimer.h:53
+    { "MMTIMER_GETCOUNTER", MMTIMER_GETCOUNTER, -1, -1 }, // linux/mmtimer.h:54
+    { "SIOCMKCLIP", SIOCMKCLIP, -1, -1 }, // linux/atmclip.h:19
+    { "I2OGETIOPS", I2OGETIOPS, -1, -1 }, // linux/i2o-dev.h:33
+    { "I2OHRTGET", I2OHRTGET, -1, -1 }, // linux/i2o-dev.h:34
+    { "I2OLCTGET", I2OLCTGET, -1, -1 }, // linux/i2o-dev.h:35
+    { "I2OPARMSET", I2OPARMSET, -1, -1 }, // linux/i2o-dev.h:36
+    { "I2OPARMGET", I2OPARMGET, -1, -1 }, // linux/i2o-dev.h:37
+    { "I2OSWDL", I2OSWDL, -1, -1 }, // linux/i2o-dev.h:38
+    { "I2OSWUL", I2OSWUL, -1, -1 }, // linux/i2o-dev.h:39
+    { "I2OSWDEL", I2OSWDEL, -1, -1 }, // linux/i2o-dev.h:40
+    { "I2OVALIDATE", I2OVALIDATE, -1, -1 }, // linux/i2o-dev.h:41
+    { "I2OHTML", I2OHTML, -1, -1 }, // linux/i2o-dev.h:42
+    { "I2OEVTREG", I2OEVTREG, -1, -1 }, // linux/i2o-dev.h:43
+    { "I2OEVTGET", I2OEVTGET, -1, -1 }, // linux/i2o-dev.h:44
+    { "I2OPASSTHRU", I2OPASSTHRU, -1, -1 }, // linux/i2o-dev.h:45
+    { "I2OPASSTHRU32", I2OPASSTHRU32, -1, -1 }, // linux/i2o-dev.h:46
+    { "IIOCNETAIF", IIOCNETAIF, -1, -1 }, // linux/isdn.h:24
+    { "IIOCNETDIF", IIOCNETDIF, -1, -1 }, // linux/isdn.h:25
+    { "IIOCNETSCF", IIOCNETSCF, -1, -1 }, // linux/isdn.h:26
+    { "IIOCNETGCF", IIOCNETGCF, -1, -1 }, // linux/isdn.h:27
+    { "IIOCNETANM", IIOCNETANM, -1, -1 }, // linux/isdn.h:28
+    { "IIOCNETDNM", IIOCNETDNM, -1, -1 }, // linux/isdn.h:29
+    { "IIOCNETGNM", IIOCNETGNM, -1, -1 }, // linux/isdn.h:30
+    { "IIOCGETSET", IIOCGETSET, -1, -1 }, // linux/isdn.h:31
+    { "IIOCSETSET", IIOCSETSET, -1, -1 }, // linux/isdn.h:32
+    { "IIOCSETVER", IIOCSETVER, -1, -1 }, // linux/isdn.h:33
+    { "IIOCNETHUP", IIOCNETHUP, -1, -1 }, // linux/isdn.h:34
+    { "IIOCSETGST", IIOCSETGST, -1, -1 }, // linux/isdn.h:35
+    { "IIOCSETBRJ", IIOCSETBRJ, -1, -1 }, // linux/isdn.h:36
+    { "IIOCSIGPRF", IIOCSIGPRF, -1, -1 }, // linux/isdn.h:37
+    { "IIOCGETPRF", IIOCGETPRF, -1, -1 }, // linux/isdn.h:38
+    { "IIOCSETPRF", IIOCSETPRF, -1, -1 }, // linux/isdn.h:39
+    { "IIOCGETMAP", IIOCGETMAP, -1, -1 }, // linux/isdn.h:40
+    { "IIOCSETMAP", IIOCSETMAP, -1, -1 }, // linux/isdn.h:41
+    { "IIOCNETASL", IIOCNETASL, -1, -1 }, // linux/isdn.h:42
+    { "IIOCNETDIL", IIOCNETDIL, -1, -1 }, // linux/isdn.h:43
+    { "IIOCGETCPS", IIOCGETCPS, -1, -1 }, // linux/isdn.h:44
+    { "IIOCGETDVR", IIOCGETDVR, -1, -1 }, // linux/isdn.h:45
+    { "IIOCNETLCR", IIOCNETLCR, -1, -1 }, // linux/isdn.h:46
+    { "IIOCNETDWRSET", IIOCNETDWRSET, -1, -1 }, // linux/isdn.h:47
+    { "IIOCNETALN", IIOCNETALN, -1, -1 }, // linux/isdn.h:49
+    { "IIOCNETDLN", IIOCNETDLN, -1, -1 }, // linux/isdn.h:50
+    { "IIOCNETGPN", IIOCNETGPN, -1, -1 }, // linux/isdn.h:52
+    { "IIOCDBGVAR", IIOCDBGVAR, -1, -1 }, // linux/isdn.h:54
+    { "IIOCDRVCTL", IIOCDRVCTL, -1, -1 }, // linux/isdn.h:56
+    { "SPIOCSTYPE", SPIOCSTYPE, -1, -1 }, // linux/serio.h:14
+    { "GADGETFS_FIFO_STATUS", GADGETFS_FIFO_STATUS, -1, -1 }, // linux/usb/gadgetfs.h:78
+    { "GADGETFS_FIFO_FLUSH", GADGETFS_FIFO_FLUSH, -1, -1 }, // linux/usb/gadgetfs.h:81
+    { "GADGETFS_CLEAR_HALT", GADGETFS_CLEAR_HALT, -1, -1 }, // linux/usb/gadgetfs.h:86
+    { "FUNCTIONFS_FIFO_STATUS", FUNCTIONFS_FIFO_STATUS, -1, -1 }, // linux/usb/functionfs.h:140
+    { "FUNCTIONFS_FIFO_FLUSH", FUNCTIONFS_FIFO_FLUSH, -1, -1 }, // linux/usb/functionfs.h:143
+    { "FUNCTIONFS_CLEAR_HALT", FUNCTIONFS_CLEAR_HALT, -1, -1 }, // linux/usb/functionfs.h:148
+    { "FUNCTIONFS_INTERFACE_REVMAP", FUNCTIONFS_INTERFACE_REVMAP, -1, -1 }, // linux/usb/functionfs.h:157
+    { "FUNCTIONFS_ENDPOINT_REVMAP", FUNCTIONFS_ENDPOINT_REVMAP, -1, -1 }, // linux/usb/functionfs.h:163
+    { "GADGET_GET_PRINTER_STATUS", GADGET_GET_PRINTER_STATUS, -1, -1 }, // linux/usb/g_printer.h:32
+    { "GADGET_SET_PRINTER_STATUS", GADGET_SET_PRINTER_STATUS, -1, -1 }, // linux/usb/g_printer.h:33
+    { "USBTMC_IOCTL_INDICATOR_PULSE", USBTMC_IOCTL_INDICATOR_PULSE, -1, -1 }, // linux/usb/tmc.h:36
+    { "USBTMC_IOCTL_CLEAR", USBTMC_IOCTL_CLEAR, -1, -1 }, // linux/usb/tmc.h:37
+    { "USBTMC_IOCTL_ABORT_BULK_OUT", USBTMC_IOCTL_ABORT_BULK_OUT, -1, -1 }, // linux/usb/tmc.h:38
+    { "USBTMC_IOCTL_ABORT_BULK_IN", USBTMC_IOCTL_ABORT_BULK_IN, -1, -1 }, // linux/usb/tmc.h:39
+    { "USBTMC_IOCTL_CLEAR_OUT_HALT", USBTMC_IOCTL_CLEAR_OUT_HALT, -1, -1 }, // linux/usb/tmc.h:40
+    { "USBTMC_IOCTL_CLEAR_IN_HALT", USBTMC_IOCTL_CLEAR_IN_HALT, -1, -1 }, // linux/usb/tmc.h:41
+    { "PPSETMODE", PPSETMODE, -1, -1 }, // linux/ppdev.h:20
+    { "PPRSTATUS", PPRSTATUS, -1, -1 }, // linux/ppdev.h:23
+    { "PPRCONTROL", PPRCONTROL, -1, -1 }, // linux/ppdev.h:27
+    { "PPWCONTROL", PPWCONTROL, -1, -1 }, // linux/ppdev.h:28
+    { "PPFCONTROL", PPFCONTROL, -1, -1 }, // linux/ppdev.h:34
+    { "PPRDATA", PPRDATA, -1, -1 }, // linux/ppdev.h:37
+    { "PPWDATA", PPWDATA, -1, -1 }, // linux/ppdev.h:38
+    { "PPCLAIM", PPCLAIM, -1, -1 }, // linux/ppdev.h:49
+    { "PPRELEASE", PPRELEASE, -1, -1 }, // linux/ppdev.h:52
+    { "PPYIELD", PPYIELD, -1, -1 }, // linux/ppdev.h:56
+    { "PPEXCL", PPEXCL, -1, -1 }, // linux/ppdev.h:59
+    { "PPDATADIR", PPDATADIR, -1, -1 }, // linux/ppdev.h:62
+    { "PPNEGOT", PPNEGOT, -1, -1 }, // linux/ppdev.h:65
+    { "PPWCTLONIRQ", PPWCTLONIRQ, -1, -1 }, // linux/ppdev.h:68
+    { "PPCLRIRQ", PPCLRIRQ, -1, -1 }, // linux/ppdev.h:71
+    { "PPSETPHASE", PPSETPHASE, -1, -1 }, // linux/ppdev.h:74
+    { "PPGETTIME", PPGETTIME, -1, -1 }, // linux/ppdev.h:77
+    { "PPSETTIME", PPSETTIME, -1, -1 }, // linux/ppdev.h:78
+    { "PPGETMODES", PPGETMODES, -1, -1 }, // linux/ppdev.h:81
+    { "PPGETMODE", PPGETMODE, -1, -1 }, // linux/ppdev.h:84
+    { "PPGETPHASE", PPGETPHASE, -1, -1 }, // linux/ppdev.h:85
+    { "PPGETFLAGS", PPGETFLAGS, -1, -1 }, // linux/ppdev.h:88
+    { "PPSETFLAGS", PPSETFLAGS, -1, -1 }, // linux/ppdev.h:89
+    { "SONET_GETSTAT", SONET_GETSTAT, -1, -1 }, // linux/sonet.h:27
+    { "SONET_GETSTATZ", SONET_GETSTATZ, -1, -1 }, // linux/sonet.h:29
+    { "SONET_SETDIAG", SONET_SETDIAG, -1, -1 }, // linux/sonet.h:31
+    { "SONET_CLRDIAG", SONET_CLRDIAG, -1, -1 }, // linux/sonet.h:33
+    { "SONET_GETDIAG", SONET_GETDIAG, -1, -1 }, // linux/sonet.h:35
+    { "SONET_SETFRAMING", SONET_SETFRAMING, -1, -1 }, // linux/sonet.h:37
+    { "SONET_GETFRAMING", SONET_GETFRAMING, -1, -1 }, // linux/sonet.h:39
+    { "SONET_GETFRSENSE", SONET_GETFRSENSE, -1, -1 }, // linux/sonet.h:41
+    { "ZATM_GETPOOL", ZATM_GETPOOL, -1, -1 }, // linux/atm_zatm.h:18
+    { "ZATM_GETPOOLZ", ZATM_GETPOOLZ, -1, -1 }, // linux/atm_zatm.h:20
+    { "ZATM_SETPOOL", ZATM_SETPOOL, -1, -1 }, // linux/atm_zatm.h:22
+    { "NCP_IOC_NCPREQUEST", NCP_IOC_NCPREQUEST, -1, -1 }, // linux/ncp_fs.h:107
+    { "NCP_IOC_GETMOUNTUID", NCP_IOC_GETMOUNTUID, -1, -1 }, // linux/ncp_fs.h:108
+    { "NCP_IOC_GETMOUNTUID2", NCP_IOC_GETMOUNTUID2, -1, -1 }, // linux/ncp_fs.h:109
+    { "NCP_IOC_CONN_LOGGED_IN", NCP_IOC_CONN_LOGGED_IN, -1, -1 }, // linux/ncp_fs.h:111
+    { "NCP_IOC_GET_FS_INFO", NCP_IOC_GET_FS_INFO, -1, -1 }, // linux/ncp_fs.h:114
+    { "NCP_IOC_GET_FS_INFO_V2", NCP_IOC_GET_FS_INFO_V2, -1, -1 }, // linux/ncp_fs.h:116
+    { "NCP_IOC_SIGN_INIT", NCP_IOC_SIGN_INIT, -1, -1 }, // linux/ncp_fs.h:118
+    { "NCP_IOC_SIGN_WANTED", NCP_IOC_SIGN_WANTED, -1, -1 }, // linux/ncp_fs.h:119
+    { "NCP_IOC_SET_SIGN_WANTED", NCP_IOC_SET_SIGN_WANTED, -1, -1 }, // linux/ncp_fs.h:120
+    { "NCP_IOC_LOCKUNLOCK", NCP_IOC_LOCKUNLOCK, -1, -1 }, // linux/ncp_fs.h:122
+    { "NCP_IOC_GETROOT", NCP_IOC_GETROOT, -1, -1 }, // linux/ncp_fs.h:124
+    { "NCP_IOC_SETROOT", NCP_IOC_SETROOT, -1, -1 }, // linux/ncp_fs.h:125
+    { "NCP_IOC_GETOBJECTNAME", NCP_IOC_GETOBJECTNAME, -1, -1 }, // linux/ncp_fs.h:127
+    { "NCP_IOC_SETOBJECTNAME", NCP_IOC_SETOBJECTNAME, -1, -1 }, // linux/ncp_fs.h:128
+    { "NCP_IOC_GETPRIVATEDATA", NCP_IOC_GETPRIVATEDATA, -1, -1 }, // linux/ncp_fs.h:129
+    { "NCP_IOC_SETPRIVATEDATA", NCP_IOC_SETPRIVATEDATA, -1, -1 }, // linux/ncp_fs.h:130
+    { "NCP_IOC_GETCHARSETS", NCP_IOC_GETCHARSETS, -1, -1 }, // linux/ncp_fs.h:132
+    { "NCP_IOC_SETCHARSETS", NCP_IOC_SETCHARSETS, -1, -1 }, // linux/ncp_fs.h:133
+    { "NCP_IOC_GETDENTRYTTL", NCP_IOC_GETDENTRYTTL, -1, -1 }, // linux/ncp_fs.h:135
+    { "NCP_IOC_SETDENTRYTTL", NCP_IOC_SETDENTRYTTL, -1, -1 }, // linux/ncp_fs.h:136
+    { "SISFB_GET_INFO_SIZE", SISFB_GET_INFO_SIZE, -1, -1 }, // video/sisfb.h:158
+    { "SISFB_GET_INFO", SISFB_GET_INFO, -1, -1 }, // video/sisfb.h:159
+    { "SISFB_GET_VBRSTATUS", SISFB_GET_VBRSTATUS, -1, -1 }, // video/sisfb.h:162
+    { "SISFB_GET_AUTOMAXIMIZE", SISFB_GET_AUTOMAXIMIZE, -1, -1 }, // video/sisfb.h:165
+    { "SISFB_SET_AUTOMAXIMIZE", SISFB_SET_AUTOMAXIMIZE, -1, -1 }, // video/sisfb.h:166
+    { "SISFB_GET_TVPOSOFFSET", SISFB_GET_TVPOSOFFSET, -1, -1 }, // video/sisfb.h:169
+    { "SISFB_SET_TVPOSOFFSET", SISFB_SET_TVPOSOFFSET, -1, -1 }, // video/sisfb.h:170
+    { "SISFB_COMMAND", SISFB_COMMAND, -1, -1 }, // video/sisfb.h:173
+    { "SISFB_SET_LOCK", SISFB_SET_LOCK, -1, -1 }, // video/sisfb.h:179
+    { "SISFB_GET_INFO_OLD", SISFB_GET_INFO_OLD, -1, -1 }, // video/sisfb.h:187
+    { "SISFB_GET_VBRSTATUS_OLD", SISFB_GET_VBRSTATUS_OLD, -1, -1 }, // video/sisfb.h:189
+    { "SISFB_GET_AUTOMAXIMIZE_OLD", SISFB_GET_AUTOMAXIMIZE_OLD, -1, -1 }, // video/sisfb.h:191
+    { "SISFB_SET_AUTOMAXIMIZE_OLD", SISFB_SET_AUTOMAXIMIZE_OLD, -1, -1 }, // video/sisfb.h:192
+    { NULL, 0 },
+};
